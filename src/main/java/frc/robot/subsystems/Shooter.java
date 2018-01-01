@@ -20,8 +20,7 @@ public class Shooter extends Subsystem {
     public boolean isShooting = false;
     public boolean isAiming;
 
-    public PIDController controller = new PIDController(0.1,0,0.01); //p = .1, i = 0, d = 0
-    public PIDController shooter = new PIDController(0.1, 0, 0);
+    public PIDController controller = new PIDController(0.05,0,0.01); //p = .1, i = 0, d = 0
 
     NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
 
@@ -30,7 +29,7 @@ public class Shooter extends Subsystem {
         return tx.getDouble(0.0);
     }
 
-    public boolean canSeeTarget (){
+    public boolean canSeeTarget () {
         NetworkTableEntry tv = table.getEntry("tv");
         return tv.getDouble(0) > 0;
     }
@@ -65,8 +64,8 @@ public class Shooter extends Subsystem {
             if (output > 0.5) output = 0.5;
             if (output < -0.5) output = -0.5;
 
-            Drive.rightParent.set(ControlMode.PercentOutput, output);
-            Drive.leftParent.set(ControlMode.PercentOutput, -output);
+            Drive.rightParent.set(ControlMode.PercentOutput, -output);
+            Drive.leftParent.set(ControlMode.PercentOutput, output);
 
 //            double shooterOutput =  shooter.calculate(((-indexer.getSelectedSensorPosition()/2048)*600)/1.75,  11000);
 //            shooterParent.set(ControlMode.PercentOutput, .7);

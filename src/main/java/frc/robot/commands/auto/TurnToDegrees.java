@@ -7,29 +7,35 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXPIDSetConfiguration;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.commands.drive.ShiftGearHigh;
+import frc.robot.commands.drive.ShiftGearLow;
 import frc.robot.subsystems.Drive;
 
 public class TurnToDegrees extends Command {
 
     int counts;
     boolean hasMoved;
+    String message;
 
-    public TurnToDegrees(double degrees){
-        counts = (int)(degrees * 105);
+    public TurnToDegrees(String message, double degrees){
+        this.message = message;
+        counts = (int)(degrees * 60.302777777777778);
     }
 
     public void initialize(){
-        Drive.shifter.set(true);
-        Drive.leftParent.setSelectedSensorPosition(0);
-        Drive.rightParent.setSelectedSensorPosition(0);
-        Drive.leftParent.configMotionCruiseVelocity(1653);
-        Drive.leftParent.configMotionAcceleration(500);
-        Drive.rightParent.configMotionAcceleration(500);
-        Drive.rightParent.configMotionCruiseVelocity(1653);
+        System.out.println(message);
+        Drive.leftParent.configMotionCruiseVelocity(1296);
+        Drive.leftParent.configMotionAcceleration(1296);
+        Drive.rightParent.configMotionAcceleration(1296);
+        Drive.rightParent.configMotionCruiseVelocity(1296);
         Drive.leftParent.selectProfileSlot(1, 0);
         Drive.rightParent.selectProfileSlot(1, 0);
-        Drive.leftParent.set(ControlMode.MotionMagic, counts);
-        Drive.rightParent.set(ControlMode.MotionMagic, -counts);
+
+        double leftStart = Drive.leftParent.getSelectedSensorPosition();
+        double rightStart = Drive.rightParent.getSelectedSensorPosition();
+
+        Drive.leftParent.set(ControlMode.MotionMagic, counts + leftStart);
+        Drive.rightParent.set(ControlMode.MotionMagic, -counts + rightStart);
     }
 
     @Override
@@ -37,7 +43,7 @@ public class TurnToDegrees extends Command {
         if (Drive.leftParent.getSelectedSensorVelocity() > 10){
             hasMoved = true;
         }
-        if (Drive.leftParent.getSelectedSensorVelocity() == 0 && hasMoved){
+        if (Math.abs(Drive.leftParent.getSelectedSensorVelocity()) < 0.1 && hasMoved){
             hasMoved = false;
             return true;
         }else{

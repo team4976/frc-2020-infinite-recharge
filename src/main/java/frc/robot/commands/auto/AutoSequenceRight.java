@@ -11,13 +11,13 @@ public class AutoSequenceRight extends CommandGroup {
         addSequential(new ResetEncoderCounts());
         addSequential(new AutoAim());
         addSequential(new AngleOfAttack());
-        addSequential(new MoveToPoint(-4.1));
+        addSequential(new MoveToPoint("", -4.1));
         addSequential(new StraightenOut());
 
-        addSequential(new MoveToPoint(-3));
+        addSequential(new MoveToPoint("",-3));
         addSequential(new ResetEncoderCounts());
 
-        addSequential(new MoveToPoint((5.9)));
+        addSequential(new MoveToPoint("", (5.9)));
 
         addSequential(new ResetEncoderCounts());
         addSequential(new AutoAim());

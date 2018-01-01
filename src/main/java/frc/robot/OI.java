@@ -38,6 +38,8 @@ public final class OI {
         new JoystickButton(driver, 4).whenPressed(new ShiftGearHigh());
         new JoystickButton(driver, 4).whenReleased(new ShiftGearLow());
 
+        new JoystickButton(driver, 3).whileHeld(new Aim());
+
         //Operator
 
         //Running and stopping intake (A)

@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.auto.AutoSequenceLeft;
+import frc.robot.commands.auto.AutoSequenceTest;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -34,14 +35,12 @@ public class Robot extends TimedRobot {
     oi = new OI();
 
     Drive.leftParent.setSensorPhase(false);
-    Drive.leftChild.setSensorPhase(false);
     Drive.rightParent.setSensorPhase(false);
-    Drive.rightChild.setSensorPhase(false);
 
-    Drive.leftParent.setInverted(true);
-    Drive.leftChild.setInverted(true);
-    Drive.rightParent.setInverted(false);
-    Drive.rightChild.setInverted(false);
+    Drive.leftParent.setInverted(false);
+    Drive.leftChild.setInverted(false);
+    Drive.rightParent.setInverted(true);
+    Drive.rightChild.setInverted(true);
 
     shooter.indexer.setInverted(true);
     shooter.shooterChild.setInverted(true);
@@ -77,9 +76,9 @@ public class Robot extends TimedRobot {
     double climberSpeedUp = oi.operator.getRawAxis(3);
     double climberSpeedDown = oi.operator.getRawAxis(2);
 
-    System.out.println("Speed down: "+ climberSpeedDown);
-    System.out.println("Current draw: " + climber.leftClimber.getOutputCurrent());
-    System.out.println("Current draw pdp: " + PDP.getCurrent(14));
+//    System.out.println("Speed down: "+ climberSpeedDown);
+//    System.out.println("Current draw: " + climber.leftClimber.getOutputCurrent());
+//    System.out.println("Current draw pdp: " + PDP.getCurrent(14));
 
     if(climberSpeedUp > 0.03 && climberSpeedDown == 0){
       //Robot.climber.turnBrakeOff();
@@ -108,7 +107,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    new AutoSequenceLeft().start();
+    new AutoSequenceTest().start();
   }
 
   @Override

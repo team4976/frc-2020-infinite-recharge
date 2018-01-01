@@ -8,12 +8,17 @@ public class AutoSequenceTest extends CommandGroup {
 
     public AutoSequenceTest(){
 
-        addSequential(new ResetEncoderCounts());
-        addSequential(new MoveToPoint(-5));
-        addSequential(new ResetEncoderCounts());
-        addSequential(new MoveToPoint(5));
-        addSequential(new ResetEncoderCounts());
+        addSequential(new TurnToDegrees("", 90));
+        addSequential(new MoveToPoint("Starting First Move", 4));
+        addSequential(new TurnToDegrees("Starting First Turn",-90));
+        addSequential(new Shoot());
 
     }
 
+
+    @Override
+    public synchronized void start() {
+        System.out.println("Starting");
+        super.start();
+    }
 }

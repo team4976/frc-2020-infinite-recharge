@@ -18,6 +18,8 @@ public class Drive extends Subsystem {
     public static VictorSPX rightChild = new VictorSPX(44);
     public static VictorSPX leftChild = new VictorSPX(43);
 
+    public boolean disabled = false;
+
     public void shiftGearHigh(){
         shifter.set(true);
     }
@@ -27,14 +29,17 @@ public class Drive extends Subsystem {
     }
 
     public void teleopDrive(){
+        if(disabled){
+            return;
+        }
 //        if (Robot.oi.driver.getRawButton(4)){
 //            Robot.shooter.target();
 //        }else{
             double throttle = deadBanded(Robot.oi.driver.getRawAxis(2) - Robot.oi.driver.getRawAxis(3));
-            double steer = getCubicOf(Robot.oi.driver.getRawAxis(0)) / 2;
+            double steer = (getCubicOf(Robot.oi.driver.getRawAxis(0))) * (0.7 + Math.abs(throttle * 0.3));
 
-            double leftOut = -throttle + steer;
-            double rightOut = -throttle - steer;
+            double leftOut = -throttle - steer;
+            double rightOut = -throttle + steer;
 
             driveMotors(leftOut, rightOut);
         //}
