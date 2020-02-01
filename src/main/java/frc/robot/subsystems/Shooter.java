@@ -29,9 +29,16 @@ public class Shooter extends Subsystem {
         return tv.getDouble(0) > 0;
     }
 
-    public void getPID(){
+    public double getThor (){
+        NetworkTableEntry thor = table.getEntry("thor0");
+        return thor.getDouble(0.0);
+    }
+
+    public void getPID() {
 
     }
+
+    double distanceRPM = getThor()*41.18;
 
     public void target (){
         System.out.println("Shooter can see target " + canSeeTarget());
@@ -43,7 +50,8 @@ public class Shooter extends Subsystem {
             Robot.leftBack.set(ControlMode.PercentOutput,output);
             Robot.leftFront.set(ControlMode.PercentOutput,output);
 
-            //double shooterOutput =  shooter.calculate(((-ShooterParent.getSelectedSensorPosition()/2048)*600)/1.75,  11000);
+            double shooterOutput =  shooter.calculate(((-ShooterParent.getSelectedSensorPosition()/2048)*600)/1.75,  distanceRPM);
+            System.out.println("RPM boi is " + distanceRPM);
             //ShooterParent.set(ControlMode.PercentOutput, .9);
             //ShooterChild.set(ControlMode.PercentOutput, .9);
 
