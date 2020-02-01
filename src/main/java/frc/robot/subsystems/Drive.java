@@ -9,10 +9,10 @@ import com.ctre.phoenix.motorcontrol.can.*;
 
 public class Drive extends Subsystem {
     public static Joystick joystick = new Joystick(0);
-    public static TalonSRX leftFront = new TalonSRX(43);
-    public static TalonSRX rightFront = new TalonSRX(48);
-    public TalonSRX leftRear = new TalonSRX(46);
-    public TalonSRX rightRear = new TalonSRX(45);
+    public static TalonSRX leftParent = new TalonSRX(43);
+    public static VictorSPX rightChild = new VictorSPX(60);
+    public static VictorSPX leftChild = new VictorSPX(46);
+    public static TalonSRX rightParent = new TalonSRX(48);
 
     public void autoDrive(){
         
@@ -22,28 +22,15 @@ public class Drive extends Subsystem {
         double throttle = deadBanded(joystick.getRawAxis(2) - joystick.getRawAxis(3));
         double steer = getCubicOf(joystick.getRawAxis(0));
 
-        double leftOut = regularize(throttle - steer);
-        double rightOut = regularize(-throttle - steer);
+        double leftOut = -throttle + steer;
+        double rightOut = -throttle - steer;
 
         driveMotors(leftOut, rightOut);
     }
 
     public void driveMotors(double left, double right){
-        leftFront.set(ControlMode.PercentOutput, left);
-        leftRear.set(ControlMode.PercentOutput, left);
-        rightFront.set(ControlMode.PercentOutput, right);
-        rightRear.set(ControlMode.PercentOutput, right);
-    }
-
-    public double regularize(double x){
-        double y = deadBanded(x);
-        if (y > 1){
-            return 1.0;
-        } else if (y < -1) {
-            return -1.0;
-        } else {
-            return y;
-        }
+        leftParent.set(ControlMode.PercentOutput, left);
+        rightParent.set(ControlMode.PercentOutput, right);
     }
 
     public double getCubicOf(double x){
@@ -59,10 +46,6 @@ public class Drive extends Subsystem {
     }
 
     protected void initDefaultCommand(){
-        leftFront.setInverted(true);
-        rightFront.setInverted(true);
-        leftRear.setInverted(true);
-        rightRear.setInverted(true);
         setDefaultCommand(new JoystickDrive());
     }
 }

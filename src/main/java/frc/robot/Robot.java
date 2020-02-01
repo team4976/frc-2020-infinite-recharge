@@ -1,7 +1,7 @@
 package frc.robot;
 
+import frc.robot.commands.PointMovement;
 import frc.robot.subsystems.*;
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.TimedRobot;
 
@@ -12,8 +12,20 @@ public class Robot extends TimedRobot {
 
   public void robotInit() {
     scheduler = Scheduler.getInstance();
+    Drive.leftParent.setSensorPhase(true);
+    Drive.leftChild.setSensorPhase(true);
+    Drive.rightParent.setSensorPhase(true);
+    Drive.rightChild.setSensorPhase(true);
+
+    Drive.leftParent.setInverted(false);
+    Drive.leftChild.setInverted(false);
+    Drive.rightParent.setInverted(true);
+    Drive.rightChild.setInverted(true);
+
 
     drive = new Drive();
+    Drive.leftChild.follow(Drive.leftParent);
+    Drive.rightChild.follow(Drive.rightParent);
   }
 
   @Override
@@ -23,8 +35,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    Drive.leftFront.startMotionProfile(MotionPoints.pointStream, 0, ControlMode.MotionMagic);
-    Drive.rightFront.startMotionProfile(MotionPoints.pointStream, 0, ControlMode.MotionMagic);
+    new PointMovement().start();
   }
 
   @Override
@@ -34,6 +45,12 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
+
+  }
+
+  @Override
+  public void testInit(){
+
   }
 
   @Override
