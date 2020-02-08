@@ -1,21 +1,26 @@
 package frc.robot;
 
-import frc.robot.commands.PointMovement;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import frc.robot.commands.auto.AutoSequence;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.TimedRobot;
 
 public class Robot extends TimedRobot {
 
+  public static Shooter shooter;
   private Scheduler scheduler;
   public static Drive drive;
 
   public void robotInit() {
+
+
     scheduler = Scheduler.getInstance();
-    Drive.leftParent.setSensorPhase(true);
-    Drive.leftChild.setSensorPhase(true);
-    Drive.rightParent.setSensorPhase(true);
-    Drive.rightChild.setSensorPhase(true);
+    Drive.leftParent.setSensorPhase(false);
+    Drive.leftChild.setSensorPhase(false);
+    Drive.rightParent.setSensorPhase(false);
+    Drive.rightChild.setSensorPhase(false);
 
     Drive.leftParent.setInverted(false);
     Drive.leftChild.setInverted(false);
@@ -24,6 +29,7 @@ public class Robot extends TimedRobot {
 
 
     drive = new Drive();
+    shooter = new Shooter();
     Drive.leftChild.follow(Drive.leftParent);
     Drive.rightChild.follow(Drive.rightParent);
   }
@@ -35,7 +41,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    new PointMovement().start();
+    new AutoSequence().start();
   }
 
   @Override
