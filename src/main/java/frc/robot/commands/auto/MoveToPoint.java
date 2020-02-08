@@ -18,16 +18,24 @@ public class MoveToPoint extends Command {
         Drive.shifter.set(DoubleSolenoid.Value.kReverse);
         Drive.leftParent.selectProfileSlot(0, 0);
         Drive.rightParent.selectProfileSlot(0, 0);
-        Drive.leftParent.configMotionCruiseVelocity(3416);
-        Drive.leftParent.configMotionAcceleration(5000);
-        Drive.rightParent.configMotionAcceleration(5000);
-        Drive.rightParent.configMotionCruiseVelocity(3416);
+        Drive.leftParent.configMotionCruiseVelocity(2500);
+        Drive.leftParent.configMotionAcceleration(3000);
+        Drive.rightParent.configMotionAcceleration(3000);
+        Drive.rightParent.configMotionCruiseVelocity(2500);
 
         Drive.leftParent.setSelectedSensorPosition(0);
         Drive.rightParent.setSelectedSensorPosition(0);
 
         Drive.leftParent.set(ControlMode.MotionMagic, counts);
         Drive.rightParent.set(ControlMode.MotionMagic, counts);
+    }
+
+    @Override
+    protected void end() {
+        Drive.leftParent.setSelectedSensorPosition(0);
+        Drive.rightParent.setSelectedSensorPosition(0);
+        Drive.leftParent.set(ControlMode.PercentOutput, 0);
+        Drive.rightParent.set(ControlMode.PercentOutput, 0);
     }
 
     @Override
@@ -46,11 +54,6 @@ public class MoveToPoint extends Command {
 
         System.out.println(finish + " " + counts + " " + Drive.leftParent.getSelectedSensorPosition());
 
-
-        if(finish){
-            Drive.leftParent.setSelectedSensorPosition(0);
-            Drive.rightParent.setSelectedSensorPosition(0);
-        }
         return finish;
     }
 }

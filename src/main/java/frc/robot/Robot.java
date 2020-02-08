@@ -1,8 +1,7 @@
 package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import frc.robot.commands.auto.AutoSequence;
+import frc.robot.commands.auto.AutoSequenceLeft;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -17,6 +16,7 @@ public class Robot extends TimedRobot {
 
 
     scheduler = Scheduler.getInstance();
+
     Drive.leftParent.setSensorPhase(false);
     Drive.leftChild.setSensorPhase(false);
     Drive.rightParent.setSensorPhase(false);
@@ -30,6 +30,11 @@ public class Robot extends TimedRobot {
 
     drive = new Drive();
     shooter = new Shooter();
+
+    shooter.indexer.setInverted(true);
+    shooter.shooterParent.setInverted(true);
+    shooter.shooterChild.setInverted(true);
+
     Drive.leftChild.follow(Drive.leftParent);
     Drive.rightChild.follow(Drive.rightParent);
   }
@@ -37,11 +42,12 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     scheduler.run();
+    System.out.println(Drive.leftParent.getSelectedSensorPosition());
   }
 
   @Override
   public void autonomousInit() {
-    new AutoSequence().start();
+    new AutoSequenceLeft().start();
   }
 
   @Override
@@ -61,5 +67,14 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testPeriodic() {
+  }
+
+  @Override
+  public void disabledInit() {
+    Drive.leftParent.set(ControlMode.PercentOutput, 0);
+    Drive.rightParent.set(ControlMode.PercentOutput, 0);
+    shooter.shooterParent.set(ControlMode.PercentOutput, 0);
+    shooter.shooterChild.set(ControlMode.PercentOutput, 0);
+    shooter.indexer.set(ControlMode.PercentOutput, 0);
   }
 }
