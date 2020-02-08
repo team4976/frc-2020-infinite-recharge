@@ -19,7 +19,7 @@ public class MoveToPoint extends Command {
         Drive.leftParent.selectProfileSlot(0, 0);
         Drive.rightParent.selectProfileSlot(0, 0);
         Drive.leftParent.configMotionCruiseVelocity(2500);
-        Drive.leftParent.configMotionAcceleration(3000);
+        Drive.leftParent.configMotionAcceleration(3500);
         Drive.rightParent.configMotionAcceleration(3000);
         Drive.rightParent.configMotionCruiseVelocity(2500);
 
