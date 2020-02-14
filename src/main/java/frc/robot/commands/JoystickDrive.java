@@ -11,6 +11,6 @@ public class JoystickDrive extends Command {
     @Override protected void execute() {
         if(!RobotState.isAutonomous())Robot.drive.teleopDrive();
     }
-    
+
     protected boolean isFinished(){return false;}
 }

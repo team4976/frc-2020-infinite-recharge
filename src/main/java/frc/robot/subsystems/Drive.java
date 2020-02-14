@@ -11,14 +11,20 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.*;
 
 public class Drive extends Subsystem {
-    public static Joystick joystick = new Joystick(0);
     public static DoubleSolenoid shifter = new DoubleSolenoid(10, 0, 1);
-    public static TalonSRX leftParent = new TalonSRX(43);
-    public static VictorSPX rightChild = new VictorSPX(45);
-    public static VictorSPX leftChild = new VictorSPX(46);
-    public static TalonSRX rightParent = new TalonSRX(48);
+
+    public static TalonSRX leftParent = new TalonSRX(41);
+    public static TalonSRX rightParent = new TalonSRX(42);
+    public static VictorSPX rightChild = new VictorSPX(43);
+    public static VictorSPX leftChild = new VictorSPX(44);
+    public static Joystick joystick = new Joystick(0);
 
     public void teleopDrive(){
+        if (Robot.oi.driver.getRawButton(1)){
+            shifter.set(DoubleSolenoid.Value.kForward);
+        }else{
+            shifter.set(DoubleSolenoid.Value.kReverse);
+        }
         if (joystick.getRawButton(1)){
             shifter.set(DoubleSolenoid.Value.kForward);
         }else{
@@ -30,6 +36,12 @@ public class Drive extends Subsystem {
         }else{
             double throttle = deadBanded(joystick.getRawAxis(2) - joystick.getRawAxis(3));
             double steer = getCubicOf(joystick.getRawAxis(0));
+
+        if (Robot.oi.driver.getRawButton(4)){
+            Robot.shooter.target();
+        }else{
+            double throttle = deadBanded(Robot.oi.driver.getRawAxis(2) - Robot.oi.driver.getRawAxis(3));
+            double steer = getCubicOf(Robot.oi.driver.getRawAxis(0));
 
             double leftOut = -throttle + steer;
             double rightOut = -throttle - steer;

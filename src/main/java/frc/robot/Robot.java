@@ -1,6 +1,11 @@
 package frc.robot;
 
+import frc.robot.subsystems.*;
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.commands.auto.AutoSequenceLeft;
+import frc.robot.subsystems.*;
 import frc.robot.commands.auto.AutoSequenceLeft;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -10,7 +15,10 @@ public class Robot extends TimedRobot {
 
   public static Shooter shooter;
   private Scheduler scheduler;
+  public static Shooter shooter;
   public static Drive drive;
+  public static Intake intake;
+  public static OI oi;
 
   public void robotInit() {
 
