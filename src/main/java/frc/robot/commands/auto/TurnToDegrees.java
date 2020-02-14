@@ -19,6 +19,7 @@ public class TurnToDegrees extends Command {
     }
 
     public void initialize(){
+        System.out.println("Got here");
         Drive.shifter.set(DoubleSolenoid.Value.kForward);
         Drive.leftParent.setSelectedSensorPosition(0);
         Drive.rightParent.setSelectedSensorPosition(0);
@@ -34,14 +35,10 @@ public class TurnToDegrees extends Command {
 
     @Override
     protected boolean isFinished() {
-        if (Drive.leftParent.getSelectedSensorVelocity() > 10){
-            hasMoved = true;
-        }
-        if (Drive.leftParent.getSelectedSensorVelocity() == 0 && hasMoved){
-            hasMoved = false;
-            return true;
-        }else{
-            return false;
-        }
+        boolean finish = Math.abs(Drive.leftParent.getSelectedSensorPosition()) > (Math.abs(counts) - 200);
+
+        System.out.println(finish + " " + counts + " " + Drive.leftParent.getSelectedSensorPosition());
+
+        return finish;
     }
 }

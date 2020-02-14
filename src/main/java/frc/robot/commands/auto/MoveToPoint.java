@@ -11,6 +11,9 @@ public class MoveToPoint extends Command {
     int counts;
     boolean hasMoved;
 
+    Integer leftStart = null;
+    Integer rightStart = null;
+
     public MoveToPoint(double distance){
         counts = (int)(15177.36 * distance);
     }
@@ -19,15 +22,15 @@ public class MoveToPoint extends Command {
         Drive.leftParent.selectProfileSlot(0, 0);
         Drive.rightParent.selectProfileSlot(0, 0);
         Drive.leftParent.configMotionCruiseVelocity(2500);
-        Drive.leftParent.configMotionAcceleration(3500);
+        Drive.leftParent.configMotionAcceleration(3000);
         Drive.rightParent.configMotionAcceleration(3000);
         Drive.rightParent.configMotionCruiseVelocity(2500);
 
-        Drive.leftParent.setSelectedSensorPosition(0);
-        Drive.rightParent.setSelectedSensorPosition(0);
+        leftStart = Drive.leftParent.getSelectedSensorPosition();
+        rightStart = Drive.rightParent.getSelectedSensorPosition();
 
-        Drive.leftParent.set(ControlMode.MotionMagic, counts);
-        Drive.rightParent.set(ControlMode.MotionMagic, counts);
+        Drive.leftParent.set(ControlMode.MotionMagic, counts + leftStart);
+        Drive.rightParent.set(ControlMode.MotionMagic, counts + rightStart);
     }
 
     @Override
@@ -40,20 +43,11 @@ public class MoveToPoint extends Command {
 
     @Override
     protected boolean isFinished() {
-//        if (Drive.leftParent.getSelectedSensorVelocity() > 10){
-//            hasMoved = true;
-//        }
-//        if (Drive.leftParent.getSelectedSensorVelocity() == 0 && hasMoved){
-//            hasMoved = false;
-//            return true;
-//        }else{
-//            return false;
-//        }
-        boolean finish = Math.abs(Drive.leftParent.getSelectedSensorPosition()) > (Math.abs(counts) - 100);
+        if (leftStart == null) return false;
 
+        int target = Math.abs(counts);
+        int diff = Math.abs(leftStart - Drive.leftParent.getSelectedSensorPosition());
 
-        System.out.println(finish + " " + counts + " " + Drive.leftParent.getSelectedSensorPosition());
-
-        return finish;
+        return Math.abs(diff - target) < 100;
     }
 }

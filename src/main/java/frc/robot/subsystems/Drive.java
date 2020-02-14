@@ -19,34 +19,32 @@ public class Drive extends Subsystem {
     public static VictorSPX leftChild = new VictorSPX(44);
     public static Joystick joystick = new Joystick(0);
 
-    public void teleopDrive(){
-        if (Robot.oi.driver.getRawButton(1)){
+    public void teleopDrive() {
+        if (Robot.oi.driver.getRawButton(1)) {
             shifter.set(DoubleSolenoid.Value.kForward);
-        }else{
+        } else {
             shifter.set(DoubleSolenoid.Value.kReverse);
         }
-        if (joystick.getRawButton(1)){
+        if (joystick.getRawButton(1)) {
             shifter.set(DoubleSolenoid.Value.kForward);
-        }else{
+        } else {
             shifter.set(DoubleSolenoid.Value.kReverse);
         }
 
-        if (joystick.getRawButton(4)){
+        if (joystick.getRawButton(4)) {
             Robot.shooter.target();
-        }else{
+        } else {
             double throttle = deadBanded(joystick.getRawAxis(2) - joystick.getRawAxis(3));
             double steer = getCubicOf(joystick.getRawAxis(0));
 
-        if (Robot.oi.driver.getRawButton(4)){
-            Robot.shooter.target();
-        }else{
-            double throttle = deadBanded(Robot.oi.driver.getRawAxis(2) - Robot.oi.driver.getRawAxis(3));
-            double steer = getCubicOf(Robot.oi.driver.getRawAxis(0));
+            if (Robot.oi.driver.getRawButton(4)) {
+                Robot.shooter.target();
+            } else {
+                double leftOut = -throttle + steer;
+                double rightOut = -throttle - steer;
 
-            double leftOut = -throttle + steer;
-            double rightOut = -throttle - steer;
-
-            driveMotors(leftOut, rightOut);
+                driveMotors(leftOut, rightOut);
+            }
         }
     }
 
