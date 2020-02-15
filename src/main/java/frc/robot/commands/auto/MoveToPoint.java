@@ -15,7 +15,7 @@ public class MoveToPoint extends Command {
     Integer rightStart = null;
 
     public MoveToPoint(double distance){
-        counts = (int)(15177.36 * distance);
+        counts = (int)(-(15177.36 * distance));
     }
     public void initialize(){
         Drive.shifter.set(DoubleSolenoid.Value.kReverse);

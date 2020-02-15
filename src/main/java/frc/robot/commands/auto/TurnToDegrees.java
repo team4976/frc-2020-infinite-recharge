@@ -15,7 +15,7 @@ public class TurnToDegrees extends Command {
     boolean hasMoved;
 
     public TurnToDegrees(double degrees){
-        counts = (int)(degrees * 105);
+        counts = (int)(-(degrees * 105));
     }
 
     public void initialize(){

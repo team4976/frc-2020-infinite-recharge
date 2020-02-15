@@ -1,17 +1,12 @@
 package frc.robot;
 
+import frc.robot.commands.auto.AutoSequenceRight;
+import frc.robot.commands.auto.AutoSequenceTest;
 import frc.robot.subsystems.*;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.auto.AutoSequenceLeft;
-import frc.robot.subsystems.*;
-import frc.robot.commands.auto.AutoSequenceLeft;
-import frc.robot.subsystems.*;
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.auto.AutoSequenceLeft;
-import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.TimedRobot;
 
@@ -104,7 +99,9 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    new AutoSequenceLeft().start();
+
+    new AutoSequenceTest().start();
+
   }
 
   @Override
