@@ -9,7 +9,7 @@ public class StraightenOut extends Command {
 
     @Override
     protected void initialize() {
-        Drive.shifter.set(DoubleSolenoid.Value.kForward);
+        Drive.shifter.set(true);
         Drive.leftParent.configMotionCruiseVelocity(1653);
         Drive.leftParent.configMotionAcceleration(500);
         Drive.rightParent.configMotionAcceleration(500);

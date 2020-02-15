@@ -8,6 +8,7 @@ public class StopIndexer extends Command {
     @Override
     protected void initialize(){
         Robot.shooter.stopIndexer();
+        Robot.hopper.stopWashingMachine();
     }
 
     @Override

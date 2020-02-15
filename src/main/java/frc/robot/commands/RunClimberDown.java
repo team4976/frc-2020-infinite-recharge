@@ -1,14 +1,13 @@
-package frc.robot.commands.shooter;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class RunIndexer extends Command {
+public class RunClimberDown extends Command {
 
     @Override
     protected void initialize(){
-        Robot.shooter.runIndexer();
-        Robot.hopper.runWashingMachineShoot();
+        Robot.climber.runClimberDown();
     }
 
     @Override

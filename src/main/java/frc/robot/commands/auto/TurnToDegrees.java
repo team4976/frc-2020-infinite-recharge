@@ -19,7 +19,7 @@ public class TurnToDegrees extends Command {
     }
 
     public void initialize(){
-        Drive.shifter.set(DoubleSolenoid.Value.kForward);
+        Drive.shifter.set(true);
         Drive.leftParent.setSelectedSensorPosition(0);
         Drive.rightParent.setSelectedSensorPosition(0);
         Drive.leftParent.configMotionCruiseVelocity(1653);

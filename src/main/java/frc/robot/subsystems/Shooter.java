@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.networktables.NetworkTable;
@@ -13,7 +14,11 @@ public class Shooter extends Subsystem {
     public TalonSRX shooterParent = new TalonSRX(45);
     public TalonSRX shooterChild = new TalonSRX(46);
     public TalonSRX indexer = new TalonSRX(47);
+
+    public Solenoid hood = new Solenoid(10, 5);
+
     public boolean isAiming;
+
     public PIDController controller = new PIDController(0.1,0,0.01); //p = .1, i = 0, d = 0
     public PIDController shooter = new PIDController(0.1, 0, 0);
 
@@ -29,14 +34,20 @@ public class Shooter extends Subsystem {
         return tv.getDouble(0) > 0;
     }
 
+    public void hoodUp(){
+        hood.set(true);
+    }
+
+    public void hoodDown(){
+        hood.set(false);
+    }
+
     public void shoot(){
-        shooterParent.set(ControlMode.PercentOutput, 0.7);
-        shooterChild.set(ControlMode.PercentOutput, 0.7);
+        shooterParent.set(ControlMode.Velocity, 53000);
     }
 
     public void stopShoot(){
         shooterParent.set(ControlMode.PercentOutput, 0);
-        shooterChild.set(ControlMode.PercentOutput, 0);
     }
 
     public boolean withinDeadband(){
@@ -70,7 +81,7 @@ public class Shooter extends Subsystem {
     }
 
     public void runIndexer(){
-        indexer.set(ControlMode.PercentOutput, 1);
+        indexer.set(ControlMode.PercentOutput, .7);
     }
 
     public void stopIndexer(){

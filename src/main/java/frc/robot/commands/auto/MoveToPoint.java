@@ -15,7 +15,7 @@ public class MoveToPoint extends Command {
         counts = (int)(15177.36 * distance);
     }
     public void initialize(){
-        Drive.shifter.set(DoubleSolenoid.Value.kReverse);
+        Drive.shifter.set(false);
         Drive.leftParent.selectProfileSlot(0, 0);
         Drive.rightParent.selectProfileSlot(0, 0);
         Drive.leftParent.configMotionCruiseVelocity(2500);

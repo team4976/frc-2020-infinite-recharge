@@ -7,7 +7,7 @@ public class StopWashingMachine extends Command {
 
     @Override
     protected void initialize(){
-        Robot.intake.stopWashingMachine();
+        //Robot.intake.stopWashingMachine();
     }
 
     @Override

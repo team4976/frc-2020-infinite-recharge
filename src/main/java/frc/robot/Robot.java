@@ -14,6 +14,8 @@ public class Robot extends TimedRobot {
   public static Shooter shooter;
   public static Drive drive;
   public static Intake intake;
+  public static Climber climber;
+  public static Hopper hopper;
   public static OI oi;
 
   public void robotInit() {
@@ -21,6 +23,8 @@ public class Robot extends TimedRobot {
     drive = new Drive();
     shooter = new Shooter();
     intake = new Intake();
+    climber = new Climber();
+    hopper = new Hopper();
     oi = new OI();
 
     Drive.leftParent.setSensorPhase(false);
@@ -28,10 +32,10 @@ public class Robot extends TimedRobot {
     Drive.rightParent.setSensorPhase(false);
     Drive.rightChild.setSensorPhase(false);
 
-    Drive.leftParent.setInverted(false);
-    Drive.leftChild.setInverted(false);
-    Drive.rightParent.setInverted(true);
-    Drive.rightChild.setInverted(true);
+    Drive.leftParent.setInverted(true);
+    Drive.leftChild.setInverted(true);
+    Drive.rightParent.setInverted(false);
+    Drive.rightChild.setInverted(false);
 
     shooter.indexer.setInverted(true);
     shooter.shooterChild.setInverted(true);
@@ -40,6 +44,8 @@ public class Robot extends TimedRobot {
     Drive.leftChild.follow(Drive.leftParent);
     Drive.rightChild.follow(Drive.rightParent);
 
+    climber.leftClimber.setInverted(true);
+
     shooter.shooterParent.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
     shooter.shooterParent.configContinuousCurrentLimit(42);
     shooter.shooterParent.configPeakCurrentLimit(60);
@@ -47,21 +53,39 @@ public class Robot extends TimedRobot {
     shooter.shooterChild.configContinuousCurrentLimit(42);
     shooter.shooterChild.configPeakCurrentLimit(60);
     shooter.shooterChild.configPeakCurrentDuration(300);
+
+    intake.intakeRight.setInverted(true);
+    hopper.washingMachine.setInverted(true);
+
+    shooter.shooterChild.follow(shooter.shooterParent);
+
+    shooter.shooterParent.setSensorPhase(true);
   }
 
   @Override
   public void robotPeriodic() {
     scheduler.run();
-    if (oi.driver.getRawButton(5)) {
+    //if (oi.driver.getRawButton(5)) {
       //shooter.target();
 //      double shooterOutput =  shooter.shooter.calculate(((-shooter.ShooterParent.getSelectedSensorPosition()/2048)*600)/1.75,  11000);
 //      shooter.ShooterParent.set(ControlMode.PercentOutput, shooterOutput);
 //      shooter.ShooterChild.set(ControlMode.PercentOutput, shooterOutput);
       //20 feet 58%
       //12 feet 60%
-    }else{
+    //}else{
       //shooter.shooterParent.set(ControlMode.PercentOutput, 0);
       //shooter.shooterChild.set(ControlMode.PercentOutput, 0);
+    //}
+
+    if (oi.driver.getRawButton(5)){
+      climber.rightClimber.set(0.02);
+      climber.leftClimber.set(0.02);
+    }
+
+    if(oi.driver.getRawButton(4)){
+      climber.leftClimber.set(-0.05);
+    } else {
+      climber.leftClimber.set(0);
     }
 
 
@@ -102,7 +126,6 @@ public class Robot extends TimedRobot {
     Drive.leftParent.set(ControlMode.PercentOutput, 0);
     Drive.rightParent.set(ControlMode.PercentOutput, 0);
     shooter.shooterParent.set(ControlMode.PercentOutput, 0);
-    shooter.shooterChild.set(ControlMode.PercentOutput, 0);
     shooter.indexer.set(ControlMode.PercentOutput, 0);
   }
 }

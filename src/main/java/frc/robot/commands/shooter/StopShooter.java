@@ -7,6 +7,7 @@ public class StopShooter extends Command {
 
     @Override
     protected void initialize(){
+        Robot.shooter.hoodDown();
         Robot.shooter.stopShoot();
     }
 

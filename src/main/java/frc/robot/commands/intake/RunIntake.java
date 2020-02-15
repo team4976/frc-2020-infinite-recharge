@@ -8,7 +8,8 @@ public class RunIntake extends Command {
     @Override
     protected void initialize(){
         Robot.intake.runIntakeMotors();
-        Robot.intake.runWashingMachine();
+        Robot.hopper.runWashingMachineStore();
+        Robot.intake.extendIntake();
     }
 
     @Override
