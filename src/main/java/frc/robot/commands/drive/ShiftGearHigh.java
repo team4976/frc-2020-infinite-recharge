@@ -1,13 +1,13 @@
-package frc.robot.commands.intake;
+package frc.robot.commands.drive;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class StopWashingMachine extends Command {
+public class ShiftGearHigh extends Command {
 
     @Override
     protected void initialize(){
-        Robot.hopper.stopWashingMachine();
+        Robot.drive.shiftGearHigh();
     }
 
     @Override

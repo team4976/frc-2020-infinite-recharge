@@ -3,11 +3,13 @@ package frc.robot.commands.intake;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class StopWashingMachine extends Command {
+public class RunIntakeReverse extends Command {
 
     @Override
     protected void initialize(){
-        Robot.hopper.stopWashingMachine();
+        Robot.intake.runIntakeMotorsReverse();
+        Robot.hopper.runWashingMachineStore();
+        Robot.intake.extendIntake();
     }
 
     @Override

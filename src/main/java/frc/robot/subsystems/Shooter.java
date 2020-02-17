@@ -17,6 +17,7 @@ public class Shooter extends Subsystem {
 
     public Solenoid hood = new Solenoid(10, 5);
 
+    public boolean isShooting = false;
     public boolean isAiming;
 
     public PIDController controller = new PIDController(0.1,0,0.01); //p = .1, i = 0, d = 0

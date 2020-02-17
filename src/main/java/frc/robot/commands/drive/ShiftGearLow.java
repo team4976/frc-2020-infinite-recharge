@@ -1,14 +1,13 @@
-package frc.robot.commands;
+package frc.robot.commands.drive;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class StopClimber extends Command {
+public class ShiftGearLow extends Command {
 
     @Override
     protected void initialize(){
-        Robot.climber.turnBrakeOn();
-        Robot.climber.stopClimber();
+        Robot.drive.shiftGearLow();
     }
 
     @Override

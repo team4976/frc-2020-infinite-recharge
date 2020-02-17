@@ -2,6 +2,7 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.auto.AutoSequenceLeft;
 import frc.robot.subsystems.*;
@@ -16,6 +17,7 @@ public class Robot extends TimedRobot {
   public static Intake intake;
   public static Climber climber;
   public static Hopper hopper;
+  public static AirCompressor airCompressor;
   public static OI oi;
 
   public void robotInit() {
@@ -25,6 +27,7 @@ public class Robot extends TimedRobot {
     intake = new Intake();
     climber = new Climber();
     hopper = new Hopper();
+    airCompressor = new AirCompressor();
     oi = new OI();
 
     Drive.leftParent.setSensorPhase(false);
@@ -77,21 +80,10 @@ public class Robot extends TimedRobot {
       //shooter.shooterChild.set(ControlMode.PercentOutput, 0);
     //}
 
-    if (oi.driver.getRawButton(5)){
-      climber.rightClimber.set(0.02);
-      climber.leftClimber.set(0.02);
-    }
 
-    if(oi.driver.getRawButton(4)){
-      climber.leftClimber.set(-0.05);
-    } else {
-      climber.leftClimber.set(0);
-    }
-
-
-    System.out.println(shooter.shooterParent.getSelectedSensorVelocity());
+    //System.out.println(shooter.shooterParent.getSelectedSensorVelocity());
     //SmartDashboard.putNumber("CurrentDraw", shooter.ShooterChild.getStatorCurrent());
-    System.out.println(((-shooter.shooterParent.getSelectedSensorVelocity()/4096.0)*600)*1.75);
+    //System.out.println(((-shooter.shooterParent.getSelectedSensorVelocity()/4096.0)*600)*1.75);
     SmartDashboard.putNumber("UPS", shooter.shooterParent.getSelectedSensorVelocity());
     SmartDashboard.putNumber("RPM", ((-shooter.shooterParent.getSelectedSensorVelocity()/4096.0)*600)*1.75);
     //System.out.println(Drive.leftParent.getSelectedSensorPosition());

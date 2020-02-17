@@ -22,6 +22,16 @@ public class Intake extends Subsystem {
         intakeRight.set(ControlMode.PercentOutput, 0.6);
     }
 
+    public void runIntakeMotorsShooting(){
+        intakeLeft.set(ControlMode.PercentOutput, 0.25);
+        intakeRight.set(ControlMode.PercentOutput, 0.25);
+    }
+
+    public void runIntakeMotorsReverse(){
+        intakeLeft.set(ControlMode.PercentOutput, -0.6);
+        intakeRight.set(ControlMode.PercentOutput, -0.6);
+    }
+
     public void extendIntake(){
         intakeSolenoid.set(true);
     }
