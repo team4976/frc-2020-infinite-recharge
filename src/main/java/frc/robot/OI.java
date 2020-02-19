@@ -53,8 +53,8 @@ public final class OI {
         new JoystickButton(operator, 3).whenReleased(new StopWashingMachine());
 
         //Running and stopping washing machine store (Y)
-        new JoystickButton(operator, 4).whenPressed(new RunWashingMachineStore());
-        new JoystickButton(operator, 4).whenReleased(new StopWashingMachine());
+//        new JoystickButton(operator, 4).whenPressed(new RunWashingMachineStore());
+//        new JoystickButton(operator, 4).whenReleased(new StopWashingMachine());
 
         // Run Climber down and stop (LEFT BUMPER)
         new JoystickButton(operator, 5).whenPressed(new RunClimberDown());

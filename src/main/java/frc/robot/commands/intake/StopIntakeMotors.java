@@ -1,13 +1,14 @@
-package frc.robot.commands.climber;
+package frc.robot.commands.intake;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class RunClimberDown extends Command {
+public class StopIntakeMotors extends Command {
 
     @Override
     protected void initialize(){
-        //Robot.climber.runClimberDown();
+        Robot.intake.stopIntakeMotors();
+        Robot.hopper.stopWashingMachine();
     }
 
     @Override

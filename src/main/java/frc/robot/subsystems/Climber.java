@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
@@ -17,19 +19,19 @@ public class Climber extends Subsystem {
     Solenoid climberBrake = new Solenoid(10, 4);
 
     //current encoder values are placeholders
-    public void runClimberUp(){
-        rightClimber.set(0.05);
-        leftClimber.set(0.05);
+    public void runClimberUp(double speed){
+        rightClimber.set(speed);
+        leftClimber.set(speed);
     }
 
-    public void runClimberDown(){
-        rightClimber.set(-0.05);
-        leftClimber.set(-0.05);
+    public void runClimberDown(double speed){
+        rightClimber.set(-speed);
+        leftClimber.set(-speed);
     }
 
     public void stopClimber(){
-        rightClimber.set(0);
-        leftClimber.set(0);
+        rightClimber.set(-0.01);
+        leftClimber.set(-0.01);
     }
 
     public void turnBrakeOff(){

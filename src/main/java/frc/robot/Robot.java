@@ -3,6 +3,7 @@ package frc.robot;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.auto.AutoSequenceLeft;
 import frc.robot.subsystems.*;
@@ -19,6 +20,8 @@ public class Robot extends TimedRobot {
   public static Hopper hopper;
   public static AirCompressor airCompressor;
   public static OI oi;
+
+  PowerDistributionPanel PDP = new PowerDistributionPanel(2);
 
   public void robotInit() {
     scheduler = Scheduler.getInstance();
@@ -68,22 +71,36 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     scheduler.run();
-    //if (oi.driver.getRawButton(5)) {
-      //shooter.target();
-//      double shooterOutput =  shooter.shooter.calculate(((-shooter.ShooterParent.getSelectedSensorPosition()/2048)*600)/1.75,  11000);
-//      shooter.ShooterParent.set(ControlMode.PercentOutput, shooterOutput);
-//      shooter.ShooterChild.set(ControlMode.PercentOutput, shooterOutput);
-      //20 feet 58%
-      //12 feet 60%
-    //}else{
-      //shooter.shooterParent.set(ControlMode.PercentOutput, 0);
-      //shooter.shooterChild.set(ControlMode.PercentOutput, 0);
-    //}
 
+    Robot.climber.turnBrakeOff();
 
-    //System.out.println(shooter.shooterParent.getSelectedSensorVelocity());
-    //SmartDashboard.putNumber("CurrentDraw", shooter.ShooterChild.getStatorCurrent());
-    //System.out.println(((-shooter.shooterParent.getSelectedSensorVelocity()/4096.0)*600)*1.75);
+    double climberSpeedUp = oi.operator.getRawAxis(3);
+    double climberSpeedDown = oi.operator.getRawAxis(2);
+
+    System.out.println("Speed down: "+ climberSpeedDown);
+    System.out.println("Current draw: " + climber.leftClimber.getOutputCurrent());
+    System.out.println("Current draw pdp: " + PDP.getCurrent(14));
+
+    if(climberSpeedUp > 0.03 && climberSpeedDown == 0){
+      //Robot.climber.turnBrakeOff();
+      Robot.climber.runClimberUp(climberSpeedUp);
+    }
+
+    if(climberSpeedDown > 0.03 && climberSpeedUp == 0){
+      Robot.climber.runClimberDown(climberSpeedDown);
+    }
+
+    if(climberSpeedDown == 0 && climberSpeedUp == 0){
+      //Robot.climber.turnBrakeOn();
+      Robot.climber.stopClimber();
+    }
+
+//    if(oi.operator.getRawButton(4)){
+//      Robot.climber.turnBrakeOff();
+//    } else {
+//      Robot.climber.turnBrakeOn();
+//    }
+
     SmartDashboard.putNumber("UPS", shooter.shooterParent.getSelectedSensorVelocity());
     SmartDashboard.putNumber("RPM", ((-shooter.shooterParent.getSelectedSensorVelocity()/4096.0)*600)*1.75);
     //System.out.println(Drive.leftParent.getSelectedSensorPosition());
@@ -115,6 +132,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledInit() {
+    Robot.climber.turnBrakeOn();
     Drive.leftParent.set(ControlMode.PercentOutput, 0);
     Drive.rightParent.set(ControlMode.PercentOutput, 0);
     shooter.shooterParent.set(ControlMode.PercentOutput, 0);

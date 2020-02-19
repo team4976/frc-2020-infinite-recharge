@@ -5,10 +5,12 @@ import frc.robot.Robot;
 
 public class RunClimberUp extends Command {
 
+    //
+
     @Override
     protected void initialize(){
-        Robot.climber.turnBrakeOff();
-        Robot.climber.runClimberUp();
+        //Robot.climber.turnBrakeOff();
+        //Robot.climber.runClimberUp();
     }
 
     @Override
