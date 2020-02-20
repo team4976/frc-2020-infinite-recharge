@@ -2,22 +2,22 @@ package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class AutoSequenceLeft extends CommandGroup {
+public class AutoSequenceRight extends CommandGroup {
 
     int i;
 
-    public AutoSequenceLeft(){
+    public AutoSequenceRight(){
 
         addSequential(new ResetEncoderCounts());
         addSequential(new AutoAim());
+        addSequential(new AngleOfAttack());
+        addSequential(new MoveToPoint(-4.1));
         addSequential(new StraightenOut());
-        addSequential(new MoveToPoint(-5));
+
+        addSequential(new MoveToPoint(-3));
         addSequential(new ResetEncoderCounts());
 
-//        addSequential(new MoveToPoint(-1.4097));
-//        addSequential(new MoveToPoint(-2.3177499999796));
-
-        addSequential(new MoveToPoint(5));
+        addSequential(new MoveToPoint((5.9)));
 
         addSequential(new ResetEncoderCounts());
         addSequential(new AutoAim());
