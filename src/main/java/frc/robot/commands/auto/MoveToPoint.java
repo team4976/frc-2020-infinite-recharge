@@ -38,30 +38,15 @@ public class MoveToPoint extends Command {
     @Override
     protected void end() { }
 
+    int getVelocity() {
+        return Math.abs(
+                Drive.leftParent.getSelectedSensorVelocity()
+        );
+    }
+
     @Override
     protected boolean isFinished() {
-////        if (Drive.leftParent.getSelectedSensorVelocity() > 10){
-////            hasMoved = true;
-////        }
-////        if (Drive.leftParent.getSelectedSensorVelocity() == 0 && hasMoved){
-////            hasMoved = false;
-////            return true;
-////        }else{
-////            return false;
-////        }
-//        boolean finish = Math.abs(Drive.leftParent.getSelectedSensorPosition()) > (Math.abs(counts) - 100);
-//
-//        System.out.println(finish + " " + counts + " " + Drive.leftParent.getSelectedSensorPosition());
-//
-//        return finish;
-        if (Drive.leftParent.getSelectedSensorVelocity() > 10){
-            hasMoved = true;
-        }
-        if (Drive.leftParent.getSelectedSensorVelocity() == 0 && hasMoved){
-            hasMoved = false;
-            return true;
-        }else{
-            return false;
-        }
+        if (getVelocity() > 10) hasMoved = true;
+        return hasMoved && getVelocity() == 0;
     }
 }

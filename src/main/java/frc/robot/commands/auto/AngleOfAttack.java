@@ -8,22 +8,33 @@ import frc.robot.subsystems.Drive;
 
 public class AngleOfAttack extends Command {
 
+    boolean hasMoved;
+
     @Override
     protected void initialize() {
 //        Drive.shifter.set(DoubleSolenoid.Value.kForward);
-        Drive.leftParent.configMotionCruiseVelocity(1653);
-        Drive.leftParent.configMotionAcceleration(500);
-        Drive.rightParent.configMotionAcceleration(500);
-        Drive.rightParent.configMotionCruiseVelocity(1653);
+        Drive.leftParent.configMotionCruiseVelocity(1296);
+        Drive.leftParent.configMotionAcceleration(1296);
+        Drive.rightParent.configMotionAcceleration(1296);
+        Drive.rightParent.configMotionCruiseVelocity(1296);
         Drive.leftParent.selectProfileSlot(1, 0);
         Drive.rightParent.selectProfileSlot(1, 0);
-        Drive.leftParent.set(ControlMode.MotionMagic, Drive.leftParent.getSelectedSensorPosition() * -1);
+        Drive.leftParent.set(ControlMode.MotionMagic, Drive.leftParent.getSelectedSensorPosition() * - 1);
         Drive.rightParent.set(ControlMode.MotionMagic, Drive.rightParent.getSelectedSensorPosition() * -1);
+    }
+
+    int getVelocity() {
+        return Math.abs(
+                Drive.leftParent.getSelectedSensorVelocity()
+        );
     }
 
     @Override
     protected boolean isFinished() {
-        return Math.abs(Drive.leftParent.getSelectedSensorPosition()) < 100;
+//        return Math.abs(Drive.leftParent.getSelectedSensorPosition()) < 100;
+
+        if (getVelocity() > 10) hasMoved = true;
+        return hasMoved && getVelocity() == 0;
     }
 
 }

@@ -8,6 +8,8 @@ public class RunShooter extends Command {
     @Override
     protected void initialize(){
         Robot.shooter.hoodUp();
+        Robot.intake.runIntakeMotorsShooting();
+        Robot.intake.extendIntake();
         Robot.shooter.shoot();
     }
 

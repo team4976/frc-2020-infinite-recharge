@@ -11,7 +11,10 @@ public class StopIntake extends CommandGroup {
 
     public StopIntake(){
         addSequential(new RetractIntake());
-        addSequential(new Delay(2000));
+
+        //Delay was previously 2 seconds
+        addSequential(new Delay(500));
+
         addSequential(new StopIntakeMotors());
     }
 }

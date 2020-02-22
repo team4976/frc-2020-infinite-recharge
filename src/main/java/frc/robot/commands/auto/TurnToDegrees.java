@@ -38,16 +38,15 @@ public class TurnToDegrees extends Command {
         Drive.rightParent.set(ControlMode.MotionMagic, -counts + rightStart);
     }
 
+    int getVelocity() {
+        return Math.abs(
+                Drive.leftParent.getSelectedSensorVelocity()
+        );
+    }
+
     @Override
     protected boolean isFinished() {
-        if (Drive.leftParent.getSelectedSensorVelocity() > 10){
-            hasMoved = true;
-        }
-        if (Math.abs(Drive.leftParent.getSelectedSensorVelocity()) < 0.1 && hasMoved){
-            hasMoved = false;
-            return true;
-        }else{
-            return false;
-        }
+        if (getVelocity() > 10) hasMoved = true;
+        return hasMoved && getVelocity() == 0;
     }
 }

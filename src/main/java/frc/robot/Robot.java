@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.auto.AutoSequenceLeft;
+import frc.robot.commands.auto.AutoSequenceRight;
 import frc.robot.commands.auto.AutoSequenceTest;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -107,7 +108,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    new AutoSequenceTest().start();
+    new AutoSequenceRight().start();
   }
 
   @Override
@@ -132,9 +133,13 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
     Robot.climber.turnBrakeOn();
+    intake.retractIntake();
+    intake.stopIntakeMotors();
+    shooter.hood.set(false);
     Drive.leftParent.set(ControlMode.PercentOutput, 0);
     Drive.rightParent.set(ControlMode.PercentOutput, 0);
     shooter.shooterParent.set(ControlMode.PercentOutput, 0);
     shooter.indexer.set(ControlMode.PercentOutput, 0);
+    hopper.washingMachine.set(ControlMode.PercentOutput, 0);
   }
 }

@@ -43,7 +43,10 @@ public class Shooter extends Subsystem {
     }
 
     public void shoot(){
-        shooterParent.set(ControlMode.Velocity, 53000);
+        //shooterParent.set(ControlMode.Velocity, 58300 * 0.65); // AUTO SHORT SHOT
+        shooterParent.set(ControlMode.Velocity, 58300 * 0.67); // LONG SHOT
+        System.out.println("Running Shooter");
+        //shooterParent.set(ControlMode.Velocity, 20000);
     }
 
     public void stopShoot(){
@@ -53,6 +56,15 @@ public class Shooter extends Subsystem {
     public boolean withinDeadband(){
         NetworkTableEntry tx = table.getEntry("tx");
         return (tx.getDouble(0.0) > -5 && tx.getDouble(0.0) < 5 && canSeeTarget());
+    }
+
+    public boolean shooterUpToSpeed(){
+        double error = Math.abs(shooterParent.getClosedLoopError());
+        System.out.println("Error: " + error);
+        if(error < 500){
+            return true;
+        }
+        return false;
     }
 
     public void target () {
@@ -72,8 +84,6 @@ public class Shooter extends Subsystem {
 //            shooterChild.set(ControlMode.PercentOutput, .7);
 
         } else {
-            shooterParent.set(ControlMode.PercentOutput, 0);
-            shooterChild.set(ControlMode.PercentOutput, 0);
             Drive.leftParent.set(ControlMode.PercentOutput, 0);
             Drive.rightParent.set(ControlMode.PercentOutput, 0);
             System.out.println("Set");

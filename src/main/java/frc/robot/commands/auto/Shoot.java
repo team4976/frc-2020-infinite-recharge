@@ -1,23 +1,16 @@
 package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import frc.robot.commands.shooter.Aim;
-import frc.robot.commands.shooter.RunIndexer;
-import frc.robot.commands.shooter.RunShooter;
-import frc.robot.commands.shooter.StopShooter;
+import frc.robot.commands.shooter.*;
 
 public class Shoot extends CommandGroup {
 
     public Shoot(){
+        addParallel(new Aim(), 4);
         addSequential(new RunShooter());
-        addSequential(new Aim(), 2);
-        addSequential(new RunIndexer());
-        addSequential(new Delay(3000));
+        addSequential(new Delay(1000));
+        addSequential(new RunIndexerAuto(), 6);
         addSequential(new StopShooter());
-    }
-
-    public void start() {
-        System.out.println("Run Shooter");
-        super.start();
+        addSequential(new StopIndexer());
     }
 }

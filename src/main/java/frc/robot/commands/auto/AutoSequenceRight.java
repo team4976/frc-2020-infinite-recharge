@@ -9,18 +9,15 @@ public class AutoSequenceRight extends CommandGroup {
     public AutoSequenceRight(){
 
         addSequential(new ResetEncoderCounts());
-        addSequential(new AutoAim());
+        addSequential(new Shoot());
         addSequential(new AngleOfAttack());
-        addSequential(new MoveToPoint("", -4.1));
+        addSequential(new MoveToPoint("", 4.1));
         addSequential(new StraightenOut());
 
-        addSequential(new MoveToPoint("",-3));
-        addSequential(new ResetEncoderCounts());
+        addSequential(new MoveToPoint("",3));
+        addSequential(new MoveToPoint("", (-5.9)));
 
-        addSequential(new MoveToPoint("", (5.9)));
-
-        addSequential(new ResetEncoderCounts());
-        addSequential(new AutoAim());
+        addSequential(new Shoot());
         addSequential(new StraightenOut());
 
 //        addSequential(new ResetEncoderCounts());

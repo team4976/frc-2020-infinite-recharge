@@ -1,20 +1,20 @@
-package frc.robot.commands.shooter;
+package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class RunIndexer extends Command {
+public class RunIndexerAuto extends Command {
 
     @Override
-    protected void initialize(){
+    protected void execute(){
         if(Robot.shooter.shooterUpToSpeed()) {
             Robot.shooter.runIndexer();
             Robot.hopper.runWashingMachineShoot();
-        }
+        } else  Robot.hopper.stopWashingMachine();
     }
 
     @Override
     protected boolean isFinished() {
-        return true;
+        return false;
     }
 }
