@@ -8,9 +8,14 @@ import frc.robot.subsystems.Drive;
 public class FindTarget extends Command {
 
     @Override
+    protected void initialize() {
+        Robot.shooter.hoodUp();
+    }
+
+    @Override
     protected void execute() {
-        Drive.leftParent.set(ControlMode.PercentOutput, 0.25);
-        Drive.rightParent.set(ControlMode.PercentOutput, -0.25);
+        Drive.leftParent.set(ControlMode.PercentOutput, -0.3);
+        Drive.rightParent.set(ControlMode.PercentOutput, 0.3);
     }
 
     @Override

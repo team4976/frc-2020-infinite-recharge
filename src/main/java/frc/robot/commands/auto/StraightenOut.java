@@ -12,10 +12,10 @@ public class StraightenOut extends Command {
     @Override
     protected void initialize() {
         Drive.shifter.set(true);
-        Drive.leftParent.configMotionCruiseVelocity(1296);
-        Drive.leftParent.configMotionAcceleration(1296);
-        Drive.rightParent.configMotionAcceleration(1296);
-        Drive.rightParent.configMotionCruiseVelocity(1296);
+        Drive.leftParent.configMotionCruiseVelocity(1800);
+        Drive.leftParent.configMotionAcceleration(1800);
+        Drive.rightParent.configMotionAcceleration(1800);
+        Drive.rightParent.configMotionCruiseVelocity(1800);
         Drive.leftParent.selectProfileSlot(1, 0);
         Drive.rightParent.selectProfileSlot(1, 0);
         Drive.leftParent.set(ControlMode.MotionMagic, 0);

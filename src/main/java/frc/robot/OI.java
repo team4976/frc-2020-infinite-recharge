@@ -2,11 +2,10 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.buttons.POVButton;
 import frc.robot.commands.CompressorToggle;
 import frc.robot.commands.auto.RunIndexerAuto;
-import frc.robot.commands.climber.RunClimberDown;
-import frc.robot.commands.climber.RunClimberUp;
-import frc.robot.commands.climber.StopClimber;
+import frc.robot.commands.climber.*;
 import frc.robot.commands.drive.ShiftGearHigh;
 import frc.robot.commands.drive.ShiftGearLow;
 import frc.robot.commands.intake.*;
@@ -68,6 +67,12 @@ public final class OI {
         new JoystickButton(operator, 6).whenReleased(new StopClimber());
 
         new JoystickButton(operator, 8).toggleWhenPressed(new CompressorToggle());
+
+        new POVButton(operator, 0).whenPressed(new TurnBrakeOn());
+        new POVButton(operator, 180).whenPressed(new TurnBrakeOff());
+
+        new POVButton(operator, 90).whenPressed(new IncreaseShooterSpeed());
+        new POVButton(operator, 270).whenPressed(new DecreaseShooterSpeed());
     }
 
 }

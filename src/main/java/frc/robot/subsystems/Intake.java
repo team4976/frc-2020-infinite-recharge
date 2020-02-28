@@ -15,7 +15,7 @@ public class Intake extends Subsystem {
     public TalonSRX intakeRight = new TalonSRX(50);
 
     //6
-    Solenoid intakeSolenoid = new Solenoid(10,6);
+    public Solenoid intakeSolenoid = new Solenoid(10,6);
 
     public void runIntakeMotors(){
 //        intakeLeft.set(ControlMode.PercentOutput, 0.6);

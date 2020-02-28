@@ -17,7 +17,7 @@ public class AutoSequenceTest extends CommandGroup {
         addSequential(new Delay(1000));
         addSequential(new MoveToPoint("",-3));
         addSequential(new Delay(1000));
-        addSequential(new Shoot());
+        addSequential(new Shoot(48500));
 
     }
 

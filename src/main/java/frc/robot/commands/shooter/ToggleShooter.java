@@ -14,7 +14,7 @@ public class ToggleShooter extends Command {
             Robot.shooter.shootClose();
         } else {
             Robot.shooter.hoodUp();
-            Robot.shooter.shoot();
+            Robot.shooter.shoot(42500);
         }
     }
 

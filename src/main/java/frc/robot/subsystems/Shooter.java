@@ -20,7 +20,7 @@ public class Shooter extends Subsystem {
     public boolean isShooting = false;
     public boolean isAiming;
 
-    public PIDController controller = new PIDController(0.05,0.01,0); //p = .1, i = 0, d = 0
+    public PIDController controller = new PIDController(0.1,0.01,0); //p = .1, i = 0, d = 0
     public int speedMultiplier = 1;
 
     NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
@@ -43,9 +43,15 @@ public class Shooter extends Subsystem {
         hood.set(false);
     }
 
-    public void shoot(){
-        shooterParent.set(ControlMode.Velocity, 50000 * (1 + (speedMultiplier * .02)));
-        System.out.println("Set shooter to: " + 50000 * (1 + (speedMultiplier * .02)));
+    public void shoot(int rpm){
+        shooterParent.set(ControlMode.Velocity, rpm);
+
+        //RPM:
+        //TRENCH SHOT tested @ 42500RPM
+        //INITIATION LINE SHOT tested @ 39000RPM
+
+        //shooterParent.set(ControlMode.Velocity, 50000 * (1 + (speedMultiplier * .02)));
+        //System.out.println("Set shooter to: " + 50000 * (1 + (speedMultiplier * .02)));
     }
 
     public void shootClose(){
@@ -64,7 +70,7 @@ public class Shooter extends Subsystem {
     public boolean shooterUpToSpeed(){
         double error = Math.abs(shooterParent.getClosedLoopError());
         System.out.println("Error: " + error);
-        if(error < 180){
+        if(error < 250){
             return true;
         }
         return false;

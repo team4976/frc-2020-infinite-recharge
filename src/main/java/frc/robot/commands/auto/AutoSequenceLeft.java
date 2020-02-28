@@ -9,14 +9,13 @@ public class AutoSequenceLeft extends CommandGroup {
     public AutoSequenceLeft(){
 
         addSequential(new ResetEncoderCounts());
-        addSequential(new Shoot());
-        addSequential(new StraightenOut());
+        addSequential(new Shoot(39000));
+        addSequential(new AngleOfAttack(0));
+        addSequential(new ResetEncoderCounts());
         addSequential(new RunIntake());
         addSequential(new MoveToPoint("", 3));
-        addSequential(new Delay(500));
         addSequential(new StopIntake());
-        addSequential(new MoveToPoint("",-3));
-        addSequential(new Shoot());
+        addSequential(new Shoot(46000));
     }
 
 }

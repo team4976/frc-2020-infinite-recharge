@@ -119,7 +119,10 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
 
-    new AutoSequenceLeft().start();
+    new AutoSequenceRight().start();
+
+//    Drive.leftParent.set(ControlMode.PercentOutput, 0.75);
+//    Drive.rightParent.set(ControlMode.PercentOutput, -0.75);
 
 //    int position = (int) SmartDashboard.getNumber("autoPos", 0);
 //

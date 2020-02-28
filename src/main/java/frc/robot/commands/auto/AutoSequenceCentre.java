@@ -9,16 +9,15 @@ public class AutoSequenceCentre extends CommandGroup {
     public AutoSequenceCentre(){
 
         addSequential(new ResetEncoderCounts());
-        addSequential(new Shoot());
+        addSequential(new Shoot(39000));
         addSequential(new AngleOfAttack(45));
-        addSequential(new MoveToPoint("", 4.8768));
+        addSequential(new MoveToPoint("", 3));
         addSequential(new TurnToDegrees("", -45));
         addSequential(new RunIntake());
-        addSequential(new MoveToPoint("",1.8288));
+        addSequential(new MoveToPoint("",3));
         addSequential(new Delay(500));
         addSequential(new StopIntake());
-        addSequential(new MoveToPoint("", (-1.8288)));
-        addSequential(new Shoot());
+        addSequential(new Shoot(46000));
     }
 
 }
