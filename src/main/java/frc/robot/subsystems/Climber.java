@@ -30,8 +30,9 @@ public class Climber extends Subsystem {
     }
 
     public void stopClimber(){
-        rightClimber.set(-0.01);
-        leftClimber.set(-0.01);
+        rightClimber.set(-0.02);
+        leftClimber.set(-0.02);
+        System.out.println("Current Draw Right: " + rightClimber.getOutputCurrent() + " Current Draw Left: " + leftClimber.getOutputCurrent());
     }
 
     public void turnBrakeOff(){

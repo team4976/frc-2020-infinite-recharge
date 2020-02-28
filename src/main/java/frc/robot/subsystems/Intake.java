@@ -11,24 +11,24 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Intake extends Subsystem {
 
     //48 and 49
-    public TalonSRX intakeLeft = new TalonSRX(51);
+    //public TalonSRX intakeLeft = new TalonSRX(51);
     public TalonSRX intakeRight = new TalonSRX(50);
 
     //6
-    Solenoid intakeSolenoid = new Solenoid(10,6);
+    public Solenoid intakeSolenoid = new Solenoid(10,6);
 
     public void runIntakeMotors(){
-        intakeLeft.set(ControlMode.PercentOutput, 0.6);
-        intakeRight.set(ControlMode.PercentOutput, 0.6);
+        //intakeLeft.set(ControlMode.PercentOutput, 0.5);
+        intakeRight.set(ControlMode.PercentOutput, 0.5);
     }
 
     public void runIntakeMotorsShooting(){
-        intakeLeft.set(ControlMode.PercentOutput, 0.25);
+        //intakeLeft.set(ControlMode.PercentOutput, 0.25);
         intakeRight.set(ControlMode.PercentOutput, 0.25);
     }
 
     public void runIntakeMotorsReverse(){
-        intakeLeft.set(ControlMode.PercentOutput, -0.6);
+        //intakeLeft.set(ControlMode.PercentOutput, -0.6);
         intakeRight.set(ControlMode.PercentOutput, -0.6);
     }
 
@@ -41,7 +41,7 @@ public class Intake extends Subsystem {
     }
 
     public void stopIntakeMotors(){
-        intakeLeft.set(ControlMode.PercentOutput, 0);
+        //intakeLeft.set(ControlMode.PercentOutput, 0);
         intakeRight.set(ControlMode.PercentOutput, 0);
     }
 

@@ -23,6 +23,8 @@ public class Robot extends TimedRobot {
   public static AirCompressor airCompressor;
   public static OI oi;
 
+  int counter = 0;
+
   PowerDistributionPanel PDP = new PowerDistributionPanel(2);
 
   public void robotInit() {
@@ -66,13 +68,13 @@ public class Robot extends TimedRobot {
     shooter.shooterChild.follow(shooter.shooterParent);
 
     shooter.shooterParent.setSensorPhase(true);
+
+    counter = 0;
   }
 
   @Override
   public void robotPeriodic() {
     scheduler.run();
-
-    Robot.climber.turnBrakeOff();
 
     double climberSpeedUp = oi.operator.getRawAxis(3);
     double climberSpeedDown = oi.operator.getRawAxis(2);
@@ -82,8 +84,15 @@ public class Robot extends TimedRobot {
 //    System.out.println("Current draw pdp: " + PDP.getCurrent(14));
 
     if(climberSpeedUp > 0.03 && climberSpeedDown == 0){
-      //Robot.climber.turnBrakeOff();
-      Robot.climber.runClimberUp(climberSpeedUp);
+      System.out.println("Counter: " + counter);
+      if(counter > 20){
+        Robot.climber.runClimberUp(climberSpeedUp);
+      } else {
+        Robot.climber.runClimberDown(0.15);
+        counter++;
+      }
+    } else {
+      counter = 0;
     }
 
     if(climberSpeedDown > 0.03 && climberSpeedUp == 0){
@@ -91,15 +100,11 @@ public class Robot extends TimedRobot {
     }
 
     if(climberSpeedDown == 0 && climberSpeedUp == 0){
-      //Robot.climber.turnBrakeOn();
       Robot.climber.stopClimber();
+      counter = 0;
     }
 
-//    if(oi.operator.getRawButton(4)){
-//      Robot.climber.turnBrakeOff();
-//    } else {
-//      Robot.climber.turnBrakeOn();
-//    }
+    //if up speed is greater than 0 but more than intake run climber down for 200ms
 
     SmartDashboard.putNumber("UPS", shooter.shooterParent.getSelectedSensorVelocity());
     SmartDashboard.putNumber("RPM", ((-shooter.shooterParent.getSelectedSensorVelocity()/4096.0)*600)*1.75);
@@ -114,6 +119,11 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
 
+  }
+
+  @Override
+  public void teleopInit(){
+    climber.turnBrakeOff();
   }
 
   @Override

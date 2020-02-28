@@ -7,14 +7,15 @@ public class ToggleShooter extends Command {
 
     @Override
     protected void initialize(){
-        if(Robot.oi.driver.getPOV() == 180){
-            Robot.shooter.hoodDown();
-        } else {
-            Robot.shooter.hoodUp();
-        }
         Robot.intake.runIntakeMotorsShooting();
         Robot.intake.extendIntake();
-        Robot.shooter.shoot();
+        if(Robot.oi.driver.getPOV() == 180){
+            Robot.shooter.hoodDown();
+            Robot.shooter.shootClose();
+        } else {
+            Robot.shooter.hoodUp();
+            Robot.shooter.shoot();
+        }
     }
 
     @Override

@@ -7,7 +7,6 @@ public class StopClimber extends Command {
 
     @Override
     protected void initialize(){
-        Robot.climber.turnBrakeOn();
         Robot.climber.stopClimber();
     }
 

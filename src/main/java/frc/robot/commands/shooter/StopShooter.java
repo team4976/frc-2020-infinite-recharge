@@ -7,6 +7,8 @@ public class StopShooter extends Command {
 
     @Override
     protected void initialize(){
+        Robot.intake.stopIntakeMotors();
+        Robot.intake.retractIntake();
         Robot.shooter.hoodDown();
         Robot.intake.stopIntakeMotors();
         Robot.intake.retractIntake();

@@ -20,6 +20,8 @@ public class Shooter extends Subsystem {
     public boolean isShooting = false;
     public boolean isAiming;
 
+    public int speedMultiplier = 1;
+
     public PIDController controller = new PIDController(0.05,0,0.01); //p = .1, i = 0, d = 0
 
     NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
@@ -43,10 +45,12 @@ public class Shooter extends Subsystem {
     }
 
     public void shoot(){
-        //shooterParent.set(ControlMode.Velocity, 58300 * 0.65); // AUTO SHORT SHOT
-        shooterParent.set(ControlMode.Velocity, 58300 * 0.67); // LONG SHOT
-        System.out.println("Running Shooter");
-        //shooterParent.set(ControlMode.Velocity, 20000);
+        shooterParent.set(ControlMode.Velocity, 50000 * (1 + (speedMultiplier * .02)));
+        System.out.println("Set shooter to: " + 50000 * (1 + (speedMultiplier * .02)));
+    }
+
+    public void shootClose(){
+        shooterParent.set(ControlMode.Velocity, 22000);
     }
 
     public void stopShoot(){

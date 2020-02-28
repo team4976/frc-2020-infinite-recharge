@@ -14,6 +14,13 @@ public class RunIndexerAuto extends Command {
     }
 
     @Override
+    protected void end() {
+        Robot.hopper.stopWashingMachine();
+        Robot.shooter.stopIndexer();
+        super.end();
+    }
+
+    @Override
     protected boolean isFinished() {
         return false;
     }

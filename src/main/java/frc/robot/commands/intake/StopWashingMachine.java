@@ -8,7 +8,6 @@ public class StopWashingMachine extends Command {
     @Override
     protected void initialize(){
         Robot.hopper.stopWashingMachine();
-        Robot.intake.retractIntake();
     }
 
     @Override

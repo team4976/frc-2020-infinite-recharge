@@ -8,7 +8,6 @@ public class RunWashingMachineStore extends Command {
     @Override
     protected void initialize(){
         Robot.hopper.runWashingMachineStore();
-        Robot.intake.extendIntake();
     }
 
     @Override
