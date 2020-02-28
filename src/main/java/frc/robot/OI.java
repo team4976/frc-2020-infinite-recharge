@@ -2,10 +2,11 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.buttons.POVButton;
 import frc.robot.commands.CompressorToggle;
 import frc.robot.commands.auto.RunIndexerAuto;
-import frc.robot.commands.climber.*;
+import frc.robot.commands.climber.RunClimberDown;
+import frc.robot.commands.climber.RunClimberUp;
+import frc.robot.commands.climber.StopClimber;
 import frc.robot.commands.drive.ShiftGearHigh;
 import frc.robot.commands.drive.ShiftGearLow;
 import frc.robot.commands.intake.*;
@@ -32,17 +33,13 @@ public final class OI {
 
         //Running and stopping indexer and washing machine (B)
         new JoystickButton(driver, 2).whileHeld(new RunIndexerAuto());
+        new JoystickButton(driver, 2).whenReleased(new StopIndexer());
 
-        //Aim (X)
-        new JoystickButton(driver, 3).whileHeld(new Aim());
-
-        //Shifting from high gear to low gear (Y) 
+        //Shifting from high gear to low gear (Y)
         new JoystickButton(driver, 4).whenPressed(new ShiftGearHigh());
         new JoystickButton(driver, 4).whenReleased(new ShiftGearLow());
 
-        new JoystickButton(driver, 6).whileHeld(new IntakeInterrupt());
-
-        new JoystickButton(driver, 10).whenPressed(new ReleaseClimber());
+        new JoystickButton(driver, 3).whileHeld(new Aim());
 
         //Operator
 
@@ -59,18 +56,16 @@ public final class OI {
         new JoystickButton(operator, 3).whenReleased(new StopWashingMachine());
 
         //Running and stopping washing machine store (Y)
-        new JoystickButton(operator, 4).whenPressed(new RunWashingMachineStore());
-        new JoystickButton(operator, 4).whenReleased(new StopWashingMachine());
+//        new JoystickButton(operator, 4).whenPressed(new RunWashingMachineStore());
+//        new JoystickButton(operator, 4).whenReleased(new StopWashingMachine());
 
-        // Run Climber down and stop (LEFT TRIGGER)
+        // Run Climber down and stop (LEFT BUMPER)
+        new JoystickButton(operator, 5).whenPressed(new RunClimberDown());
+        new JoystickButton(operator, 5).whenReleased(new StopClimber());
 
-        // Run Climber up and stop (RIGHT TRIGGER)
-
-        new POVButton(operator, 0).whenPressed(new TurnBrakeOn());
-        new POVButton(operator, 180).whenPressed(new TurnBrakeOff());
-
-        new POVButton(operator, 90).whenPressed(new IncreaseShooterSpeed());
-        new POVButton(operator, 270).whenPressed(new DecreaseShooterSpeed());
+        // Run Climber up and stop (RIGHT BUMPER)
+        new JoystickButton(operator, 6).whenPressed(new RunClimberUp());
+        new JoystickButton(operator, 6).whenReleased(new StopClimber());
 
         new JoystickButton(operator, 8).toggleWhenPressed(new CompressorToggle());
     }

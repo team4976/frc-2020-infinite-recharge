@@ -8,19 +8,25 @@ import frc.robot.subsystems.Drive;
 
 public class AngleOfAttack extends Command {
 
+    int counts;
     boolean hasMoved;
+    String message;
 
-    @Override
-    protected void initialize() {
-//        Drive.shifter.set(DoubleSolenoid.Value.kForward);
+    public AngleOfAttack(double degrees){
+        counts = (int)(degrees * 60.302777777777778);
+    }
+
+    public void initialize(){
+        System.out.println(message);
         Drive.leftParent.configMotionCruiseVelocity(1296);
         Drive.leftParent.configMotionAcceleration(1296);
         Drive.rightParent.configMotionAcceleration(1296);
         Drive.rightParent.configMotionCruiseVelocity(1296);
         Drive.leftParent.selectProfileSlot(1, 0);
         Drive.rightParent.selectProfileSlot(1, 0);
-        Drive.leftParent.set(ControlMode.MotionMagic, Drive.leftParent.getSelectedSensorPosition() * - 1);
-        Drive.rightParent.set(ControlMode.MotionMagic, Drive.rightParent.getSelectedSensorPosition() * -1);
+
+        Drive.leftParent.set(ControlMode.MotionMagic, counts);
+        Drive.rightParent.set(ControlMode.MotionMagic, -counts);
     }
 
     int getVelocity() {
