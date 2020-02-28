@@ -3,6 +3,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.CompressorToggle;
+import frc.robot.commands.auto.RunIndexerAuto;
 import frc.robot.commands.climber.RunClimberDown;
 import frc.robot.commands.climber.RunClimberUp;
 import frc.robot.commands.climber.StopClimber;
@@ -31,7 +32,7 @@ public final class OI {
        // new JoystickButton(driver, 1).whenReleased(new StopShooter());
 
         //Running and stopping indexer and washing machine (B)
-        new JoystickButton(driver, 2).whenPressed(new RunIndexer());
+        new JoystickButton(driver, 2).whileHeld(new RunIndexerAuto());
         new JoystickButton(driver, 2).whenReleased(new StopIndexer());
 
         //Shifting from high gear to low gear (Y)

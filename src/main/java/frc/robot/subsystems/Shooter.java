@@ -20,7 +20,7 @@ public class Shooter extends Subsystem {
     public boolean isShooting = false;
     public boolean isAiming;
 
-    public PIDController controller = new PIDController(0.05,0,0.01); //p = .1, i = 0, d = 0
+    public PIDController controller = new PIDController(0.05,0.01,0); //p = .1, i = 0, d = 0
 
     NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
 
@@ -61,7 +61,7 @@ public class Shooter extends Subsystem {
     public boolean shooterUpToSpeed(){
         double error = Math.abs(shooterParent.getClosedLoopError());
         System.out.println("Error: " + error);
-        if(error < 500){
+        if(error < 180){
             return true;
         }
         return false;
@@ -73,8 +73,8 @@ public class Shooter extends Subsystem {
         if (canSeeTarget()) {
             double x = getX();
             double output = controller.calculate(x, 0);
-            if (output > 0.5) output = 0.5;
-            if (output < -0.5) output = -0.5;
+            if (output > 0.6) output = 0.6;
+            if (output < -0.6) output = -0.6;
 
             Drive.rightParent.set(ControlMode.PercentOutput, -output);
             Drive.leftParent.set(ControlMode.PercentOutput, output);

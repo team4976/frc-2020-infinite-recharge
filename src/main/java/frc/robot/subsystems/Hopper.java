@@ -10,11 +10,11 @@ public class Hopper extends Subsystem {
     public TalonSRX washingMachine = new TalonSRX(52);
 
     public void runWashingMachineShoot(){
-        washingMachine.set(ControlMode.PercentOutput, 0.6);
+        washingMachine.set(ControlMode.PercentOutput, 0.80);
     }
 
     public void runWashingMachineStore(){
-        washingMachine.set(ControlMode.PercentOutput, -0.45);
+        washingMachine.set(ControlMode.PercentOutput, -0.80);
     }
 
     public void stopWashingMachine(){

@@ -1,32 +1,25 @@
-package frc.robot.commands.shooter;
+package frc.robot.commands.auto;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 import frc.robot.subsystems.Drive;
 
-public class Aim extends Command {
-
-
-    @Override
-    protected void initialize(){
-        Robot.shooter.hoodUp();
-        Robot.drive.disabled = true;
-    }
+public class FindTarget extends Command {
 
     @Override
-    protected void execute(){
-        Robot.shooter.target();
+    protected void execute() {
+        Drive.leftParent.set(ControlMode.PercentOutput, 0.25);
+        Drive.rightParent.set(ControlMode.PercentOutput, -0.25);
     }
 
     @Override
     protected boolean isFinished() {
-        return false;
+        return Robot.shooter.canSeeTarget();
     }
 
     @Override
-    protected void end(){
-        Robot.drive.disabled = false;
+    protected void end() {
         Drive.leftParent.set(ControlMode.PercentOutput, 0);
         Drive.rightParent.set(ControlMode.PercentOutput, 0);
     }

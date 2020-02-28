@@ -23,9 +23,7 @@ public class StraightenOut extends Command {
     }
 
     int getVelocity() {
-        return Math.abs(
-                Drive.leftParent.getSelectedSensorVelocity()
-        );
+        return Math.abs(Drive.leftParent.getSelectedSensorVelocity());
     }
 
     @Override
