@@ -10,7 +10,7 @@ public class AutoSequenceFar extends CommandGroup {
     public AutoSequenceFar(){
         addSequential(new ResetEncoderCounts());
         addSequential(new FindTarget());
-        addSequential(new Shoot(SmartDashboard.getNumber("shooterCloseSpeed", SmartDashboard.getNumber("shooterCloseSpeed", 0))));
+        addSequential(new Shoot(SmartDashboard.getNumber("shooterCloseSpeed", SmartDashboard.getNumber("shooterCloseSpeed", 39000))));
         addSequential(new AngleOfAttack(70));
         addSequential(new MoveToPoint("", 1.5));
         addSequential(new TurnToDegrees("", -70));

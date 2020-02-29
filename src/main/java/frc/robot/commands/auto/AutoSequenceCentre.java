@@ -10,7 +10,7 @@ public class AutoSequenceCentre extends CommandGroup {
     public AutoSequenceCentre(){
 
         addSequential(new ResetEncoderCounts());
-        addSequential(new Shoot(SmartDashboard.getNumber("shooterCloseSpeed", SmartDashboard.getNumber("shooterCloseSpeed", 0))));
+        addSequential(new Shoot(SmartDashboard.getNumber("shooterCloseSpeed", SmartDashboard.getNumber("shooterCloseSpeed", 39000))));
         addSequential(new AngleOfAttack(45));
         addSequential(new MoveToPoint("", 3));
         addSequential(new TurnToDegrees("", -45));
@@ -18,7 +18,7 @@ public class AutoSequenceCentre extends CommandGroup {
         addSequential(new MoveToPoint("",3));
         addSequential(new Delay(500));
         addSequential(new StopIntake());
-        addSequential(new Shoot(SmartDashboard.getNumber("shooterFarSpeed", SmartDashboard.getNumber("shooterFarSpeed", 0))));
+        addSequential(new Shoot(SmartDashboard.getNumber("shooterFarSpeed", SmartDashboard.getNumber("shooterFarSpeed", 42500))));
     }
 
 }
