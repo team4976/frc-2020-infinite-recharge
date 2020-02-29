@@ -65,7 +65,7 @@ public final class OI {
         new JoystickButton(operator, 6).whenPressed(new RunClimberUp());
         new JoystickButton(operator, 6).whenReleased(new StopClimber());
 
-        new JoystickButton(operator, 8).toggleWhenPressed(new CompressorToggle());
+        //new JoystickButton(operator, 8).toggleWhenPressed(new CompressorToggle());
 
         new POVButton(operator, 0).whenPressed(new TurnBrakeOn());
         new POVButton(operator, 180).whenPressed(new TurnBrakeOff());
