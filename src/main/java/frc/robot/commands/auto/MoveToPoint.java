@@ -24,8 +24,8 @@ public class MoveToPoint extends Command {
         Drive.leftParent.selectProfileSlot(0, 0);
         Drive.rightParent.selectProfileSlot(0, 0);
         Drive.leftParent.configMotionCruiseVelocity(2000);
-        Drive.leftParent.configMotionAcceleration(2000);
-        Drive.rightParent.configMotionAcceleration(2000);
+        Drive.leftParent.configMotionAcceleration(3105);
+        Drive.rightParent.configMotionAcceleration(3105);
         Drive.rightParent.configMotionCruiseVelocity(2000);
 
         double leftStart = Drive.leftParent.getSelectedSensorPosition();

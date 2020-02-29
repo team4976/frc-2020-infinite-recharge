@@ -2,9 +2,15 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.auto.*;
+import frc.robot.commands.auto.AutoSequenceCentre;
+import frc.robot.commands.auto.AutoSequenceLeft;
+import frc.robot.commands.auto.AutoSequenceRight;
+import frc.robot.commands.auto.AutoSequenceTest;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -125,21 +131,8 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
 //
-//    AUTO SEQUENCE CODE:
-//   ---------------------------------
+//    new AutoSequenceRight().start();
 //
-      new AutoSequenceTrench().start();
-//    new AutoSequenceTrench8Ball.start();
-//    new AutoSequenceTrenchReturn().start();
-//    new AutoSequenceCentre().start();
-//    new AutoSequenceFar().start();
-//    new AutoSequenceTest().start();
-//
-
-//    NETWORK TABLE AUTO SEQUENCE CODE:
-//    ---------------------------------
-
-
 ////    Drive.leftParent.set(ControlMode.PercentOutput, 0.75);
 ////    Drive.rightParent.set(ControlMode.PercentOutput, -0.75);
 //
@@ -151,10 +144,6 @@ public class Robot extends TimedRobot {
 //      new AutoSequenceCentre().start();
 //    }else if (position == 2){
 //      new AutoSequenceRight().start();
-//    }else if (position == 3){
-//      new AutoSequenceDelta.start();
-//    }else if (position == 4){
-//      new AutoSequenceLeft8Ball.start();
 //    }else{
 //      new AutoSequenceTest().start();
 //    }
