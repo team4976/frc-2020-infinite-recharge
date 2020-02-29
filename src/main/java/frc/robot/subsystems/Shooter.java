@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Shooter extends Subsystem {
     public TalonSRX shooterParent = new TalonSRX(45);
@@ -20,7 +21,7 @@ public class Shooter extends Subsystem {
     public boolean isShooting = false;
     public boolean isAiming;
 
-    public PIDController controller = new PIDController(0.1,0.01,0); //p = .1, i = 0, d = 0
+    public PIDController controller;//p = .1, i = 0, d = 0
     public int speedMultiplier = 1;
 
     NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
@@ -28,6 +29,16 @@ public class Shooter extends Subsystem {
     public double getX(){
         NetworkTableEntry tx = table.getEntry("tx");
         return tx.getDouble(0.0);
+    }
+
+    public void turnOnLimelight(){
+        NetworkTableEntry ledMode = table.getEntry("ledMode");
+        ledMode.setValue(0);
+    }
+
+    public void turnOffLimelight(){
+        NetworkTableEntry ledMode = table.getEntry("ledMode");
+        ledMode.setValue(1);
     }
 
     public boolean canSeeTarget () {
@@ -43,19 +54,19 @@ public class Shooter extends Subsystem {
         hood.set(false);
     }
 
-    public void shoot(int rpm){
+    public void shoot(double rpm){
         shooterParent.set(ControlMode.Velocity, rpm);
 
         //RPM:
-        //TRENCH SHOT tested @ 42500RPM
-        //INITIATION LINE SHOT tested @ 39000RPM
+        //TRENCH SHOT tested @ 42500UPS
+        //INITIATION LINE SHOT tested @ 39000UPS
 
         //shooterParent.set(ControlMode.Velocity, 50000 * (1 + (speedMultiplier * .02)));
         //System.out.println("Set shooter to: " + 50000 * (1 + (speedMultiplier * .02)));
     }
 
-    public void shootClose(){
-        shooterParent.set(ControlMode.Velocity, 22000);
+    public void shootClose(double rpm){
+        shooterParent.set(ControlMode.Velocity, rpm);
     }
 
     public void stopShoot(){
@@ -79,6 +90,8 @@ public class Shooter extends Subsystem {
     public void target () {
         isAiming = true;
         System.out.println("Shooter can see target " + canSeeTarget());
+        controller = new PIDController(SmartDashboard.getNumber("shooterP", 0.1),SmartDashboard.getNumber("shooterI", 0.01),SmartDashboard.getNumber("shooterD", 0));
+
         if (canSeeTarget()) {
             double x = getX();
             double output = controller.calculate(x, 0);
@@ -87,10 +100,6 @@ public class Shooter extends Subsystem {
 
             Drive.rightParent.set(ControlMode.PercentOutput, -output);
             Drive.leftParent.set(ControlMode.PercentOutput, output);
-
-//            double shooterOutput =  shooter.calculate(((-indexer.getSelectedSensorPosition()/2048)*600)/1.75,  11000);
-//            shooterParent.set(ControlMode.PercentOutput, .7);
-//            shooterChild.set(ControlMode.PercentOutput, .7);
 
         } else {
             Drive.leftParent.set(ControlMode.PercentOutput, 0);

@@ -43,8 +43,7 @@ public final class OI {
         //Operator
 
         //Running and stopping intake (A)
-        new JoystickButton(operator, 1).whenPressed(new RunIntake());
-        new JoystickButton(operator, 1).whenReleased(new StopIntake());
+        new JoystickButton(operator, 1).whileHeld(new RunIntake());
 
         //Running and stopping intake reverse (B)
         new JoystickButton(operator, 2).whenPressed(new RunIntakeReverse());

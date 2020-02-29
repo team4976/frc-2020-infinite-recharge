@@ -7,8 +7,10 @@ public class StopIntakeMotors extends Command {
 
     @Override
     protected void initialize(){
-        Robot.intake.stopIntakeMotors();
-        Robot.hopper.stopWashingMachine();
+        if(!Robot.oi.operator.getRawButton(1)) {
+            Robot.intake.stopIntakeMotors();
+            Robot.hopper.stopWashingMachine();
+        }
     }
 
     @Override

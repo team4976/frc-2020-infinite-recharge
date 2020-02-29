@@ -7,13 +7,22 @@ public class RunIntake extends Command {
 
     @Override
     protected void initialize(){
-        Robot.intake.runIntakeMotors();
-        Robot.hopper.runWashingMachineStore();
         Robot.intake.extendIntake();
     }
 
     @Override
+    protected void execute(){
+        Robot.intake.runIntakeMotors();
+        Robot.hopper.runWashingMachineStore();
+    }
+
+    @Override
     protected boolean isFinished() {
-        return true;
+        return false;
+    }
+
+    @Override
+    protected void end(){
+        new StopIntake().start();
     }
 }

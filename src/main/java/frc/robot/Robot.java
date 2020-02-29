@@ -31,7 +31,17 @@ public class Robot extends TimedRobot {
   PowerDistributionPanel PDP = new PowerDistributionPanel(2);
 
   public void robotInit() {
+    //40500 init line
+    //42500 auto trench
+    //37500 trench
+
     SmartDashboard.putNumber("autoPos", SmartDashboard.getNumber("autoPos", 0));
+    SmartDashboard.putNumber("shooterCloseSpeed", SmartDashboard.getNumber("shooterCloseSpeed", 39000));
+    SmartDashboard.putNumber("shooterFarSpeed", SmartDashboard.getNumber("shooterFarSpeed", 40500));
+    SmartDashboard.putNumber("shooterP", SmartDashboard.getNumber("shooterP", 0.1));
+    SmartDashboard.putNumber("shooterI", SmartDashboard.getNumber("shooterI", 0.01));
+    SmartDashboard.putNumber("shooterD", SmartDashboard.getNumber("shooterD", 0));
+
 
     scheduler = Scheduler.getInstance();
     drive = new Drive();
@@ -118,13 +128,13 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-
-    new AutoSequenceRight().start();
-
-//    Drive.leftParent.set(ControlMode.PercentOutput, 0.75);
-//    Drive.rightParent.set(ControlMode.PercentOutput, -0.75);
-
-//    int position = (int) SmartDashboard.getNumber("autoPos", 0);
+//
+//    new AutoSequenceRight().start();
+//
+////    Drive.leftParent.set(ControlMode.PercentOutput, 0.75);
+////    Drive.rightParent.set(ControlMode.PercentOutput, -0.75);
+//
+//    int position = (int) SmartDashboard.getNumber("autoPos", SmartDashboard.getNumber("autoPos", 0));
 //
 //    if (position == 0){
 //      new AutoSequenceLeft().start();

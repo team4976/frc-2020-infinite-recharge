@@ -10,6 +10,7 @@ public class StopShooter extends Command {
         Robot.intake.stopIntakeMotors();
         Robot.intake.retractIntake();
         Robot.shooter.hoodDown();
+        Robot.shooter.turnOffLimelight();
         Robot.intake.stopIntakeMotors();
         Robot.intake.retractIntake();
         Robot.shooter.stopShoot();

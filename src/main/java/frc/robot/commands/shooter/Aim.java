@@ -10,6 +10,7 @@ public class Aim extends Command {
 
     @Override
     protected void initialize(){
+        Robot.shooter.turnOnLimelight();
         Robot.shooter.hoodUp();
         Robot.drive.disabled = true;
     }

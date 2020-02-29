@@ -5,9 +5,9 @@ import frc.robot.Robot;
 
 public class RunShooter extends Command {
 
-    int fireRPM = 0;
+    double fireRPM = 0;
 
-    public RunShooter(int rpm){
+    public RunShooter(double rpm){
         fireRPM = rpm;
     }
 

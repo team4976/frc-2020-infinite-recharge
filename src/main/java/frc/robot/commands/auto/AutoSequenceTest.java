@@ -1,6 +1,7 @@
 package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.intake.RunIntake;
 import frc.robot.commands.intake.StopIntake;
 import frc.robot.commands.shooter.Aim;
@@ -17,7 +18,7 @@ public class AutoSequenceTest extends CommandGroup {
         addSequential(new Delay(1000));
         addSequential(new MoveToPoint("",-3));
         addSequential(new Delay(1000));
-        addSequential(new Shoot(48500));
+        addSequential(new Shoot(SmartDashboard.getNumber("shooterFarSpeed", SmartDashboard.getNumber("shooterFarSpeed", 0))));
 
     }
 

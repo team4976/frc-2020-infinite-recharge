@@ -5,7 +5,7 @@ import frc.robot.commands.shooter.*;
 
 public class Shoot extends CommandGroup {
 
-    public Shoot(int rpm){
+    public Shoot(double rpm){
         addSequential(new RunShooter(rpm));
         addSequential(new Delay(100));
         addParallel(new Aim(), 4);
