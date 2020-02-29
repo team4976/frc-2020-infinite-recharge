@@ -13,10 +13,12 @@ public class ToggleShooter extends Command {
         Robot.shooter.turnOnLimelight();
         if(Robot.oi.driver.getPOV() == 180){
             Robot.shooter.hoodDown();
-            Robot.shooter.shootClose(SmartDashboard.getNumber("shooterCloseSpeed", SmartDashboard.getNumber("shooterCloseSpeed", 0)));
+//            Robot.shooter.shootClose(SmartDashboard.getNumber("shooterCloseSpeed", SmartDashboard.getNumber("shooterCloseSpeed", 0)));
+            Robot.shooter.shoot(28000);
         } else {
             Robot.shooter.hoodUp();
-            Robot.shooter.shoot(SmartDashboard.getNumber("shooterFarSpeed", SmartDashboard.getNumber("shooterFarSpeed", 0)));
+//            Robot.shooter.shoot(SmartDashboard.getNumber("shooterFarSpeed", SmartDashboard.getNumber("shooterFarSpeed", 0)));
+            Robot.shooter.shoot(37500);
         }
     }
 

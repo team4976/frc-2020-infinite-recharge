@@ -21,7 +21,7 @@ public class Shooter extends Subsystem {
     public boolean isShooting = false;
     public boolean isAiming;
 
-    public PIDController controller;//p = .1, i = 0, d = 0
+    public PIDController controller = new PIDController(0.1, 0.01, 0);//p = .1, i = 0, d = 0
     public int speedMultiplier = 1;
 
     NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
@@ -90,7 +90,7 @@ public class Shooter extends Subsystem {
     public void target () {
         isAiming = true;
         System.out.println("Shooter can see target " + canSeeTarget());
-        controller = new PIDController(SmartDashboard.getNumber("shooterP", 0.1),SmartDashboard.getNumber("shooterI", 0.01),SmartDashboard.getNumber("shooterD", 0));
+        //controller = new PIDController(SmartDashboard.getNumber("shooterP", 0.1),SmartDashboard.getNumber("shooterI", 0.01),SmartDashboard.getNumber("shooterD", 0));
 
         if (canSeeTarget()) {
             double x = getX();

@@ -13,14 +13,15 @@ public class AutoSequenceRight extends CommandGroup {
         addSequential(new Shoot(SmartDashboard.getNumber("shooterCloseSpeed", SmartDashboard.getNumber("shooterCloseSpeed", 0))));
         addSequential(new AngleOfAttack(70));
         addSequential(new MoveToPoint("", 1.5));
-        addSequential(new TurnToDegrees("", -45));
-        addSequential(new RunIntake());
-        addSequential(new MoveToPoint("",1.8288));
-        addSequential(new Delay(500));
-        addSequential(new StopIntake());
-        addSequential(new MoveToPoint("", (-1.8288)));
-        addSequential(new Shoot(SmartDashboard.getNumber("shooterFarSpeed", SmartDashboard.getNumber("shooterFarSpeed", 0))));
-        addSequential(new StraightenOut());
+        addSequential(new TurnToDegrees("", -70));
+
+//        addSequential(new RunIntake());
+//        addSequential(new MoveToPoint("",1.8288));
+//        addSequential(new Delay(500));
+//        addSequential(new StopIntake());
+//        addSequential(new MoveToPoint("", (-1.8288)));
+//        addSequential(new Shoot(SmartDashboard.getNumber("shooterFarSpeed", SmartDashboard.getNumber("shooterFarSpeed", 0))));
+//        addSequential(new StraightenOut());
     }
 
 }

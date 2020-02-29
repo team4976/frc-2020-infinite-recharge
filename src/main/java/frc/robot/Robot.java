@@ -98,9 +98,9 @@ public class Robot extends TimedRobot {
 //    System.out.println("Current draw: " + climber.leftClimber.getOutputCurrent());
 //    System.out.println("Current draw pdp: " + PDP.getCurrent(14));
 
-    if(climberSpeedUp > 0.03 && climberSpeedDown == 0){
+    if (climberSpeedUp > 0.03 && climberSpeedDown == 0) {
       System.out.println("Counter: " + counter);
-      if(counter > 20){
+      if (counter > 20) {
         Robot.climber.runClimberUp(climberSpeedUp);
       } else {
         Robot.climber.runClimberDown(0.15);
@@ -110,11 +110,11 @@ public class Robot extends TimedRobot {
       counter = 0;
     }
 
-    if(climberSpeedDown > 0.03 && climberSpeedUp == 0){
+    if (climberSpeedDown > 0.03 && climberSpeedUp == 0) {
       Robot.climber.runClimberDown(climberSpeedDown);
     }
 
-    if(climberSpeedDown == 0 && climberSpeedUp == 0){
+    if (climberSpeedDown == 0 && climberSpeedUp == 0) {
       Robot.climber.stopClimber();
       counter = 0;
     }
@@ -122,14 +122,14 @@ public class Robot extends TimedRobot {
     //if up speed is greater than 0 but more than intake run climber down for 200ms
 
     SmartDashboard.putNumber("UPS", shooter.shooterParent.getSelectedSensorVelocity());
-    SmartDashboard.putNumber("RPM", ((-shooter.shooterParent.getSelectedSensorVelocity()/4096.0)*600)*1.75);
+    SmartDashboard.putNumber("RPM", ((-shooter.shooterParent.getSelectedSensorVelocity() / 4096.0) * 600) * 1.75);
     //System.out.println(Drive.leftParent.getSelectedSensorPosition());
   }
 
   @Override
   public void autonomousInit() {
 //
-//    new AutoSequenceRight().start();
+    new AutoSequenceLeft().start();
 //
 ////    Drive.leftParent.set(ControlMode.PercentOutput, 0.75);
 ////    Drive.rightParent.set(ControlMode.PercentOutput, -0.75);
@@ -153,8 +153,9 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void teleopInit(){
+  public void teleopInit() {
     climber.turnBrakeOff();
+    shooter.turnOffLimelight();
   }
 
   @Override
@@ -163,7 +164,7 @@ public class Robot extends TimedRobot {
   }
 
   @Override
-  public void testInit(){
+  public void testInit() {
 
   }
 
@@ -182,5 +183,10 @@ public class Robot extends TimedRobot {
     shooter.shooterParent.set(ControlMode.PercentOutput, 0);
     shooter.indexer.set(ControlMode.PercentOutput, 0);
     hopper.washingMachine.set(ControlMode.PercentOutput, 0);
+  }
+
+  @Override
+  public void disabledPeriodic() {
+    Robot.shooter.turnOffLimelight();
   }
 }
