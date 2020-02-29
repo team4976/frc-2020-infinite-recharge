@@ -8,8 +8,6 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.auto.AutoSequenceCentre;
-import frc.robot.commands.auto.AutoSequenceLeft;
-import frc.robot.commands.auto.AutoSequenceRight;
 import frc.robot.commands.auto.AutoSequenceTest;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.command.Scheduler;
