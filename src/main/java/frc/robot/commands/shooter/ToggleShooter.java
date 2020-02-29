@@ -18,7 +18,7 @@ public class ToggleShooter extends Command {
         } else {
             Robot.shooter.hoodUp();
 //            Robot.shooter.shoot(SmartDashboard.getNumber("shooterFarSpeed", SmartDashboard.getNumber("shooterFarSpeed", 0)));
-            Robot.shooter.shoot(37500);
+            Robot.shooter.shoot(38500);
         }
     }
 

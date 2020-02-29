@@ -5,9 +5,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.intake.RunIntake;
 import frc.robot.commands.intake.StopIntake;
 
-public class AutoSequenceRight extends CommandGroup {
+public class AutoSequenceFar extends CommandGroup {
 
-    public AutoSequenceRight(){
+    public AutoSequenceFar(){
         addSequential(new ResetEncoderCounts());
         addSequential(new FindTarget());
         addSequential(new Shoot(SmartDashboard.getNumber("shooterCloseSpeed", SmartDashboard.getNumber("shooterCloseSpeed", 0))));

@@ -1,24 +1,26 @@
 package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.intake.RunIntake;
 import frc.robot.commands.intake.StopIntake;
 
-public class AutoSequenceLeft extends CommandGroup {
+public class AutoSequenceTrenchReturn extends CommandGroup {
 
-    public AutoSequenceLeft(){
+    public AutoSequenceTrenchReturn(){
 
         addSequential(new ResetEncoderCounts());
 //        addSequential(new Shoot(SmartDashboard.getNumber("shooterCloseSpeed", SmartDashboard.getNumber("shooterCloseSpeed", 0))));
-        addSequential(new Shoot(28000));
-        addSequential(new AngleOfAttack(0));
+        addSequential(new Shoot(40500));
+        addSequential(new AngleOfAttack(0), 1);
         addSequential(new ResetEncoderCounts());
-        addSequential(new RunIntake());
-        addSequential(new MoveToPoint("", 3));
+        addSequential(new AutoRunIntake());
+        addSequential(new MoveToPoint("", 3.75));
         addSequential(new StopIntake());
+        addSequential(new MoveToPointFast("", 5.96));
+        addSequential(new Shoot(40500));
 //        addSequential(new Shoot(SmartDashboard.getNumber("shooterFarSpeed", SmartDashboard.getNumber("shooterFarSpeed", 0))));
-        addSequential(new Shoot(37500));
+
+//        final shot...
+//        addSequential(new Shoot(40500));
     }
 
 }
