@@ -2,9 +2,6 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.auto.AutoSequenceCentre;
@@ -128,23 +125,19 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-//
-//    new AutoSequenceRight().start();
-//
 ////    Drive.leftParent.set(ControlMode.PercentOutput, 0.75);
 ////    Drive.rightParent.set(ControlMode.PercentOutput, -0.75);
-//
-//    int position = (int) SmartDashboard.getNumber("autoPos", SmartDashboard.getNumber("autoPos", 0));
-//
-//    if (position == 0){
-//      new AutoSequenceLeft().start();
-//    }else if (position == 1){
-//      new AutoSequenceCentre().start();
-//    }else if (position == 2){
-//      new AutoSequenceRight().start();
-//    }else{
-//      new AutoSequenceTest().start();
-//    }
+    int position = (int) SmartDashboard.getNumber("autoPos", SmartDashboard.getNumber("autoPos", 0));
+
+    if (position == 0){
+      new AutoSequenceRight().start();
+    }else if (position == 1){
+      new AutoSequenceCentre().start();
+    }else if (position == 2){
+      new AutoSequenceLeft().start();
+    }else{
+      new AutoSequenceTest().start();
+    }
   }
 
   @Override

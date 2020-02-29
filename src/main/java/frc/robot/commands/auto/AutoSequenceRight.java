@@ -8,19 +8,18 @@ import frc.robot.commands.intake.StopIntake;
 public class AutoSequenceRight extends CommandGroup {
 
     public AutoSequenceRight(){
+
+        //The autonomous sequence beginning on the right side of the field, from the driver's perspective;
+        //In line with the trench run, just right of being centred with the power port.
+
         addSequential(new ResetEncoderCounts());
-        addSequential(new FindTarget());
         addSequential(new Shoot(SmartDashboard.getNumber("shooterCloseSpeed", SmartDashboard.getNumber("shooterCloseSpeed", 0))));
-        addSequential(new AngleOfAttack(70));
-        addSequential(new MoveToPoint("", 1.5));
-        addSequential(new TurnToDegrees("", -45));
+        addSequential(new AngleOfAttack(0));
+        addSequential(new ResetEncoderCounts());
         addSequential(new RunIntake());
-        addSequential(new MoveToPoint("",1.8288));
-        addSequential(new Delay(500));
+        addSequential(new MoveToPoint("", 3));
         addSequential(new StopIntake());
-        addSequential(new MoveToPoint("", (-1.8288)));
         addSequential(new Shoot(SmartDashboard.getNumber("shooterFarSpeed", SmartDashboard.getNumber("shooterFarSpeed", 0))));
-        addSequential(new StraightenOut());
     }
 
 }
