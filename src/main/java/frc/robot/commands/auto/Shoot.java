@@ -14,4 +14,9 @@ public class Shoot extends CommandGroup {
         addSequential(new StopShooter());
         addSequential(new StopIndexer());
     }
+
+    @Override
+    protected void end() {
+        System.out.println("Finished Shoot Sequence!");
+    }
 }

@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.auto.AutoSequenceCentre;
 import frc.robot.commands.auto.AutoSequenceTest;
+import frc.robot.commands.auto.AutoSequenceTrench;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -129,7 +130,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
 //
-//    new AutoSequenceRight().start();
+    new AutoSequenceTrench().start();
 //
 ////    Drive.leftParent.set(ControlMode.PercentOutput, 0.75);
 ////    Drive.rightParent.set(ControlMode.PercentOutput, -0.75);

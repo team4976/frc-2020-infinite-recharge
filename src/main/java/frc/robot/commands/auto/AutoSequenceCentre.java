@@ -9,8 +9,6 @@ public class AutoSequenceCentre extends CommandGroup {
 
     public AutoSequenceCentre(){
 
-        //The autonomous sequence beginning in the CENTRE of the field.
-
         addSequential(new ResetEncoderCounts());
         addSequential(new Shoot(SmartDashboard.getNumber("shooterCloseSpeed", SmartDashboard.getNumber("shooterCloseSpeed", 0))));
         addSequential(new AngleOfAttack(45));
