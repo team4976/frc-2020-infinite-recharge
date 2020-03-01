@@ -1,14 +1,12 @@
-package frc.robot.commands.shooter;
+package frc.robot.commands.auto;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class StopShooter extends Command {
+public class StopShooterKeepIntaking extends Command {
 
     @Override
     protected void initialize(){
-        Robot.intake.stopIntakeMotors();
-        Robot.intake.retractIntake();
         Robot.shooter.hoodDown();
         Robot.shooter.turnOffLimelight();
         Robot.shooter.stopShoot();
