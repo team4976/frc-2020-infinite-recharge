@@ -10,7 +10,6 @@ public class ShootQuickly extends CommandGroup {
 
     public ShootQuickly(double rpm){
         addSequential(new RunShooter(rpm));
-        addSequential(new Delay(100));
         addParallel(new Aim(), 3.25);
         addSequential(new Delay(750));
         addSequential(new RunIndexerAuto(), 2.5);
