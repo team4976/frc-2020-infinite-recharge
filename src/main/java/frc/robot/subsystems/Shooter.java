@@ -31,6 +31,11 @@ public class Shooter extends Subsystem {
         return tx.getDouble(0.0);
     }
 
+    public double getY(){
+        NetworkTableEntry ty = table.getEntry("ty");
+        return ty.getDouble(0.0);
+    }
+
     public void turnOnLimelight(){
         NetworkTableEntry ledMode = table.getEntry("ledMode");
         ledMode.setValue(0);
@@ -94,12 +99,14 @@ public class Shooter extends Subsystem {
 
         if (canSeeTarget()) {
             double x = getX();
+            double y = getY();
             double output = controller.calculate(x, 0);
             if (output > 0.6) output = 0.6;
             if (output < -0.6) output = -0.6;
 
             Drive.rightParent.set(ControlMode.PercentOutput, -output);
             Drive.leftParent.set(ControlMode.PercentOutput, output);
+
 
         } else {
             Drive.leftParent.set(ControlMode.PercentOutput, 0);
