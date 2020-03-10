@@ -21,7 +21,7 @@ public class Shooter extends Subsystem {
     public boolean isShooting = false;
     public boolean isAiming;
 
-    public PIDController controller = new PIDController(0.1, 0.01, 0);//p = .1, i = 0, d = 0
+    public PIDController controller = new PIDController(0.085, 0.0085, 0);//p = .1, i = 0, d = 0
     public int speedMultiplier = 1;
 
     NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");

@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.auto.AutoSequenceCentre;
@@ -84,11 +85,16 @@ public class Robot extends TimedRobot {
     shooter.shooterParent.setSensorPhase(true);
 
     counter = 0;
+
+    climber.rightClimber.burnFlash();
+    climber.leftClimber.burnFlash();
   }
 
   @Override
   public void robotPeriodic() {
     scheduler.run();
+
+    climber.printClimberValues();
 
     double climberSpeedUp = oi.operator.getRawAxis(3);
     double climberSpeedDown = oi.operator.getRawAxis(2);
@@ -97,15 +103,28 @@ public class Robot extends TimedRobot {
 //    System.out.println("Current draw: " + climber.leftClimber.getOutputCurrent());
 //    System.out.println("Current draw pdp: " + PDP.getCurrent(14));
 
+    double climberPosition = Math.abs(climber.climberEncoderRight.getPosition());
+
     if (climberSpeedUp > 0.03 && climberSpeedDown == 0) {
-      System.out.println("Counter: " + counter);
-      climber.turnBrakeOff();
-      if (counter > 20) {
-        Robot.climber.runClimberUp(climberSpeedUp);
+      if (climberPosition > 200) {
+        oi.operator.setRumble(GenericHID.RumbleType.kLeftRumble, 0.8);
+        oi.operator.setRumble(GenericHID.RumbleType.kRightRumble, 0.8);
+        Robot.climber.stopClimber();
       } else {
-        Robot.climber.runClimberDown(0.15);
-        counter++;
+        oi.operator.setRumble(GenericHID.RumbleType.kLeftRumble, 0);
+        oi.operator.setRumble(GenericHID.RumbleType.kRightRumble, 0);
+        climber.turnBrakeOff();
+        if (counter > 20) {
+          Robot.climber.runClimberUp(climberSpeedUp);
+        } else {
+          Robot.climber.runClimberDown(0.15);
+          counter++;
+        }
       }
+
+
+      //System.out.println("Counter: " + counter);
+
     } else {
       counter = 0;
     }
@@ -118,6 +137,8 @@ public class Robot extends TimedRobot {
     if (climberSpeedDown == 0 && climberSpeedUp == 0) {
       Robot.climber.stopClimber();
       counter = 0;
+      oi.operator.setRumble(GenericHID.RumbleType.kLeftRumble, 0);
+      oi.operator.setRumble(GenericHID.RumbleType.kRightRumble, 0);
     }
 
     //if up speed is greater than 0 but more than intake run climber down for 200ms
@@ -130,6 +151,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
 //
+   // new AutoSequenceCentre().start();
     new AutoSequenceTrench().start();
 //
 ////    Drive.leftParent.set(ControlMode.PercentOutput, 0.75);

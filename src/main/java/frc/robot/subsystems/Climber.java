@@ -14,7 +14,8 @@ public class Climber extends Subsystem {
     public CANSparkMax rightClimber = new CANSparkMax(49, CANSparkMaxLowLevel.MotorType.kBrushless);
     public CANSparkMax leftClimber = new CANSparkMax(48, CANSparkMaxLowLevel.MotorType.kBrushless);
 
-    public CANEncoder climberEncoder = new CANEncoder(rightClimber);
+    public CANEncoder climberEncoderRight = new CANEncoder(rightClimber);
+    public CANEncoder climberEncoderLeft = new CANEncoder(leftClimber);
 
     Solenoid climberBrake = new Solenoid(10, 4);
 
@@ -32,7 +33,7 @@ public class Climber extends Subsystem {
     public void stopClimber(){
         rightClimber.set(-0.02);
         leftClimber.set(-0.02);
-        System.out.println("Current Draw Right: " + rightClimber.getOutputCurrent() + " Current Draw Left: " + leftClimber.getOutputCurrent());
+        //System.out.println("Current Draw Right: " + rightClimber.getOutputCurrent() + " Current Draw Left: " + leftClimber.getOutputCurrent());
     }
 
     public void turnBrakeOff(){
@@ -45,8 +46,7 @@ public class Climber extends Subsystem {
 
 
     public void printClimberValues(){
-        System.out.println(climberEncoder.getVelocity() + " Velocity");
-        System.out.println(climberEncoder.getPosition() + " Position");
+        System.out.println(climberEncoderRight.getPosition() + " Position");
     }
 
     @Override

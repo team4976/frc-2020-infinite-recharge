@@ -8,17 +8,13 @@ import frc.robot.commands.intake.StopIntake;
 public class AutoSequenceCentre extends CommandGroup {
 
     public AutoSequenceCentre(){
-
         addSequential(new ResetEncoderCounts());
-        addSequential(new Shoot(SmartDashboard.getNumber("shooterCloseSpeed", SmartDashboard.getNumber("shooterCloseSpeed", 0))));
-        addSequential(new AngleOfAttack(45));
-        addSequential(new MoveToPoint("", 3));
-        addSequential(new TurnToDegrees("", -45));
-        addSequential(new RunIntake());
-        addSequential(new MoveToPoint("",3));
-        addSequential(new Delay(500));
+        addSequential(new Shoot(39000));
+        addSequential(new AutoRunIntake());
+        addSequential(new MoveToPoint("", 3.75 * 0.58));
         addSequential(new StopIntake());
-        addSequential(new Shoot(SmartDashboard.getNumber("shooterFarSpeed", SmartDashboard.getNumber("shooterFarSpeed", 0))));
+        addSequential(new MoveToPoint("", -2.25));
+        addSequential(new Shoot(39000));
     }
 
 }
