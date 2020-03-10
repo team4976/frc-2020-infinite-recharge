@@ -15,7 +15,7 @@ public class RunShooter extends Command {
     protected void initialize(){
         Robot.intake.runIntakeMotorsShooting();
         Robot.intake.extendIntake();
-        Robot.shooter.hoodUp();
+        new HoodUpToLimitSwitch().start();
         Robot.intake.runIntakeMotorsShooting();
         Robot.intake.extendIntake();
         Robot.shooter.shoot(fireRPM);

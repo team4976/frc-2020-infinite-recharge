@@ -1,7 +1,6 @@
 package frc.robot.commands.shooter;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 public class ToggleShooter extends Command {
@@ -12,11 +11,13 @@ public class ToggleShooter extends Command {
         Robot.intake.extendIntake();
         Robot.shooter.turnOnLimelight();
         if(Robot.oi.driver.getPOV() == 180){
-            Robot.shooter.hoodDown();
+            new HoodDownToLimitSwitch().start();
+            System.out.println("Hood should be down now");
 //            Robot.shooter.shootClose(SmartDashboard.getNumber("shooterCloseSpeed", SmartDashboard.getNumber("shooterCloseSpeed", 0)));
             Robot.shooter.shoot(28000);
         } else {
-            Robot.shooter.hoodUp();
+            new HoodUpToLimitSwitch().start();
+            System.out.println("Hood should be up now");
 //            Robot.shooter.shoot(SmartDashboard.getNumber("shooterFarSpeed", SmartDashboard.getNumber("shooterFarSpeed", 0)));
             Robot.shooter.shoot(38500);
 //            Robot.shooter.shoot(40250);
@@ -33,7 +34,7 @@ public class ToggleShooter extends Command {
         Robot.shooter.stopShoot();
         Robot.intake.retractIntake();
         Robot.intake.stopIntakeMotors();
-        Robot.shooter.hoodDown();
+        new HoodDownToLimitSwitch().start();
         Robot.shooter.turnOffLimelight();
     }
 }

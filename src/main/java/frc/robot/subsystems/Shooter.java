@@ -1,8 +1,10 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.controller.PIDController;
@@ -12,11 +14,13 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Shooter extends Subsystem {
-    public TalonSRX shooterParent = new TalonSRX(45);
-    public TalonSRX shooterChild = new TalonSRX(46);
+    public TalonFX shooterParent = new TalonFX(45);
+    public TalonFX shooterChild = new TalonFX(46);
     public TalonSRX indexer = new TalonSRX(47);
+    public TalonSRX hoodMotor = new TalonSRX(55);
 
-    public Solenoid hood = new Solenoid(10, 5);
+    public DigitalInput topLimitSwitch = new DigitalInput(9);
+    public DigitalInput bottomLimitSwitch = new DigitalInput(10);
 
     public boolean isShooting = false;
     public boolean isAiming;
@@ -49,14 +53,6 @@ public class Shooter extends Subsystem {
     public boolean canSeeTarget () {
         NetworkTableEntry tv = table.getEntry("tv");
         return tv.getDouble(0) > 0;
-    }
-
-    public void hoodUp(){
-        hood.set(true);
-    }
-
-    public void hoodDown(){
-        hood.set(false);
     }
 
     public void shoot(double rpm){
@@ -100,6 +96,7 @@ public class Shooter extends Subsystem {
         if (canSeeTarget()) {
             double x = getX();
             double y = getY();
+
             double output = controller.calculate(x, 0);
             if (output > 0.6) output = 0.6;
             if (output < -0.6) output = -0.6;
@@ -107,10 +104,20 @@ public class Shooter extends Subsystem {
             Drive.rightParent.set(ControlMode.PercentOutput, -output);
             Drive.leftParent.set(ControlMode.PercentOutput, output);
 
+            double outputY = controller.calculate(y, 0);
+            if (outputY > 0.5) outputY = 0.5;
+            if (outputY < -0.5) outputY = -0.5;
+
+            if (topLimitSwitch.get() && bottomLimitSwitch.get()) {
+                hoodMotor.set(ControlMode.PercentOutput, outputY);
+            }else{
+                hoodMotor.set(ControlMode.PercentOutput, 0);
+            }
 
         } else {
             Drive.leftParent.set(ControlMode.PercentOutput, 0);
             Drive.rightParent.set(ControlMode.PercentOutput, 0);
+            hoodMotor.set(ControlMode.PercentOutput, 0);
             System.out.println("Set");
         }
     }

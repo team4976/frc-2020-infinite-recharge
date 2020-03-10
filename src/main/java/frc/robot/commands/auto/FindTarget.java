@@ -3,13 +3,14 @@ package frc.robot.commands.auto;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import frc.robot.commands.shooter.HoodUpToLimitSwitch;
 import frc.robot.subsystems.Drive;
 
 public class FindTarget extends Command {
 
     @Override
     protected void initialize() {
-        Robot.shooter.hoodUp();
+        new HoodUpToLimitSwitch().start();
     }
 
     @Override

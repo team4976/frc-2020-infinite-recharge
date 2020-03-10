@@ -2,15 +2,11 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.auto.AutoSequenceCentre;
-import frc.robot.commands.auto.AutoSequenceTest;
 import frc.robot.commands.auto.AutoSequenceTrench;
+import frc.robot.commands.shooter.HoodDownToLimitSwitch;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -70,12 +66,15 @@ public class Robot extends TimedRobot {
     climber.leftClimber.setInverted(true);
 
     shooter.shooterParent.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
-    shooter.shooterParent.configContinuousCurrentLimit(42);
-    shooter.shooterParent.configPeakCurrentLimit(60);
-    shooter.shooterParent.configPeakCurrentDuration(300);
-    shooter.shooterChild.configContinuousCurrentLimit(42);
-    shooter.shooterChild.configPeakCurrentLimit(60);
-    shooter.shooterChild.configPeakCurrentDuration(300);
+
+//    SupplyCurrentLimitConfiguration cfg = new SupplyCurrentLimitConfiguration();
+//    cfg.currentLimit = 1
+//    shooter.shooterParent.configSupplyCurrentLimit()
+//    shooter.shooterParent.configPeakCurrentLimit(60);
+//    shooter.shooterParent.configPeakCurrentDuration(300);
+//    shooter.shooterChild.configContinuousCurrentLimit(42);
+//    shooter.shooterChild.configPeakCurrentLimit(60);
+//    shooter.shooterChild.configPeakCurrentDuration(300);
 
     intake.intakeRight.setInverted(true);
     hopper.washingMachine.setInverted(true);
@@ -200,7 +199,7 @@ public class Robot extends TimedRobot {
     Robot.climber.turnBrakeOn();
     intake.retractIntake();
     intake.stopIntakeMotors();
-    shooter.hood.set(false);
+    new HoodDownToLimitSwitch().start();
     Drive.leftParent.set(ControlMode.PercentOutput, 0);
     Drive.rightParent.set(ControlMode.PercentOutput, 0);
     shooter.shooterParent.set(ControlMode.PercentOutput, 0);

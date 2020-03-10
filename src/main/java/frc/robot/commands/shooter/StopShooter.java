@@ -9,7 +9,7 @@ public class StopShooter extends Command {
     protected void initialize(){
         Robot.intake.stopIntakeMotors();
         Robot.intake.retractIntake();
-        Robot.shooter.hoodDown();
+        new HoodDownToLimitSwitch().start();
         Robot.shooter.turnOffLimelight();
         Robot.intake.stopIntakeMotors();
         Robot.intake.retractIntake();
