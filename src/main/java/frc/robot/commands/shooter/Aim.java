@@ -17,6 +17,7 @@ public class Aim extends Command {
     @Override
     protected void execute(){
         Robot.shooter.target();
+        Robot.shooter.turnOnLimelight();
     }
 
     @Override
@@ -27,6 +28,7 @@ public class Aim extends Command {
     @Override
     protected void end(){
         Robot.drive.disabled = false;
+        Robot.shooter.hoodMotor.set(ControlMode.PercentOutput, 0);
         Drive.leftParent.set(ControlMode.PercentOutput, 0);
         Drive.rightParent.set(ControlMode.PercentOutput, 0);
     }

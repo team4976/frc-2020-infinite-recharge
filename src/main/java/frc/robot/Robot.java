@@ -92,6 +92,8 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     scheduler.run();
+    System.out.println("Bottom one: " + Robot.shooter.bottomLimitSwitch.get());
+    System.out.println("Top one: " + Robot.shooter.topLimitSwitch.get());
 
     climber.printClimberValues();
 

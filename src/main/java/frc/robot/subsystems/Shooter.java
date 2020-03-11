@@ -19,8 +19,8 @@ public class Shooter extends Subsystem {
     public TalonSRX indexer = new TalonSRX(47);
     public TalonSRX hoodMotor = new TalonSRX(55);
 
-    public DigitalInput topLimitSwitch = new DigitalInput(9);
-    public DigitalInput bottomLimitSwitch = new DigitalInput(10);
+    public DigitalInput topLimitSwitch = new DigitalInput(8);
+    public DigitalInput bottomLimitSwitch = new DigitalInput(9);
 
     public boolean isShooting = false;
     public boolean isAiming;
@@ -108,7 +108,7 @@ public class Shooter extends Subsystem {
             if (outputY > 0.5) outputY = 0.5;
             if (outputY < -0.5) outputY = -0.5;
 
-            if (topLimitSwitch.get() && bottomLimitSwitch.get()) {
+            if (topLimitSwitch.get() && bottomLimitSwitch.get() || topLimitSwitch.get() && outputY > 0 || bottomLimitSwitch.get() && outputY < 0) {
                 hoodMotor.set(ControlMode.PercentOutput, outputY);
             }else{
                 hoodMotor.set(ControlMode.PercentOutput, 0);
